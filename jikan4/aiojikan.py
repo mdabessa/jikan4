@@ -71,3 +71,24 @@ class AioJikan:
 
         endpoint = f"anime/{anime_id}"
         return await self._get(endpoint)
+
+
+    async def search_anime(self, search_type: str, query: str, page: int = 1) -> dict:
+        """Search for anime, manga, people, characters, or news
+
+        Args:
+            search_type (str): Type of search to perform (tv, movie, ova, special, ona, music)
+            query (str): Query to search for
+            page (int, optional): Page number. Defaults to 1.
+
+        Returns:
+            dict: JSON response from Jikan API
+        
+        Examples:
+            >>> aiojikan = AioJikan()
+            >>> aiojikan.search_anime("anime", "naruto")
+        """
+
+        endpoint = f"anime"
+        params = {"q": query, "page": page, "type": search_type}
+        return await self._get(endpoint, params)

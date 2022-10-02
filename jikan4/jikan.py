@@ -57,3 +57,23 @@ class Jikan:
         endpoint = f"anime/{anime_id}"
         return self._get(endpoint)
     
+
+    def search_anime(self, search_type: str, query: str, page: int = 1) -> dict:
+        """Search for anime, manga, people, characters, or news
+
+        Args:
+            search_type (str): Type of search to perform (tv, movie, ova, special, ona, music)
+            query (str): Query to search for
+            page (int, optional): Page number. Defaults to 1.
+
+        Returns:
+            dict: JSON response from Jikan API
+
+        Examples:
+            >>> jikan = Jikan()
+            >>> jikan.search_anime("anime", "naruto")
+        """
+
+        endpoint = f"anime"
+        params = {"q": query, "page": page, "type": search_type}
+        return self._get(endpoint, params)

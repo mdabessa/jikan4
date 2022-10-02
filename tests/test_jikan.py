@@ -15,3 +15,9 @@ def test_get_anime(jikan: Jikan):
         expected = json.load(f)
 
     assert resp == expected, 'Response does not match expected response'
+
+
+def test_search_anime(jikan: Jikan):
+    resp = jikan.search_anime('anime', 'naruto')
+
+    assert {'pagination', 'data'}.issubset(resp.keys()), 'Response does not match expected response'
