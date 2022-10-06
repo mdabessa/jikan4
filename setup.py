@@ -9,7 +9,7 @@ with open('requirements.txt', 'r') as f:
 
 setup(
     name='jikan4',
-    version='0.0.1',
+    version='0.0.2',
     author='Matheus Bessa',
     description='A Python wrapper for the Jikan API',
     long_description=page_description,
