@@ -14,9 +14,9 @@ pip install jikan4
 from jikan4.jikan import Jikan
 
 jikan = Jikan()
-anime = jikan.get_anime(1)
 
-search = jikan.search_anime("anime", "naruto")
+anime = jikan.get_anime(1)
+search = jikan.search_anime("tv", "naruto")
 ```
 
 ### Async Usage
@@ -28,9 +28,9 @@ from jikan4.aiojikan import AioJikan
 async def main():
     jikan = AioJikan()
 
-    resp = await jikan.get_anime(1)
+    anime = await jikan.get_anime(1)
+    search = await jikan.search_anime('tv', 'naruto')
 
-    search = await jikan.search_anime('anime', 'naruto')
     jikan.close()
 
 
