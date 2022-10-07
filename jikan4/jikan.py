@@ -24,7 +24,6 @@ class Jikan:
         self.base_url = base_url
         self.session = requests.Session()
 
-
     def _get(self, endpoint: str, params: dict = None) -> dict:
         """Make a GET request to the Jikan API
 
@@ -40,7 +39,6 @@ class Jikan:
         response = self.session.get(url, params=params)
         response.raise_for_status()
         return response.json()
-
 
     def get_anime(self, anime_id: int) -> Anime:
         """Get anime information
@@ -58,8 +56,7 @@ class Jikan:
 
         endpoint = f"anime/{anime_id}"
         response = self._get(endpoint)
-        return Anime(**response['data'])
-
+        return Anime(**response["data"])
 
     def search_anime(self, search_type: str, query: str, page: int = 1) -> AnimeSearch:
         """Search for anime

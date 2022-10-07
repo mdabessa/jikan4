@@ -26,14 +26,14 @@ class Image(BaseModel):
 
 
 class Trailer(BaseModel):
-    youtube_id: str  | None = None
-    url: str  | None = None
-    embed_url: str  | None = None
+    youtube_id: str | None = None
+    url: str | None = None
+    embed_url: str | None = None
 
 
 class Title(BaseModel):
-    type: str  | None = None
-    title: str  | None = None
+    type: str | None = None
+    title: str | None = None
 
 
 class Prop(BaseModel):
