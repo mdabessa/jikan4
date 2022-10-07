@@ -59,7 +59,7 @@ class AioJikan:
             anime_id (int): Anime ID
 
         Returns:
-            dict: JSON response from Jikan API
+            Anime: Anime object
 
         Examples:
             >>> aiojikan = AioJikan()
@@ -71,7 +71,7 @@ class AioJikan:
 
         return Anime(**response["data"])
 
-    async def search_anime(self, search_type: str, query: str, page: int = 1) -> dict:
+    async def search_anime(self, search_type: str, query: str, page: int = 1) -> AnimeSearch:
         """Search for anime
 
         Args:
@@ -80,7 +80,7 @@ class AioJikan:
             page (int, optional): Page number. Defaults to 1.
 
         Returns:
-            dict: JSON response from Jikan API
+            AnimeSearch: AnimeSearch object
 
         Examples:
             >>> aiojikan = AioJikan()

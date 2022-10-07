@@ -47,7 +47,7 @@ class Jikan:
             anime_id (int): Anime ID
 
         Returns:
-            dict: JSON response from Jikan API
+            Anime: Anime object
 
         Examples:
             >>> jikan = Jikan()
@@ -67,7 +67,7 @@ class Jikan:
             page (int, optional): Page number. Defaults to 1.
 
         Returns:
-            dict: JSON response from Jikan API
+            AnimeSearch: AnimeSearch object
 
         Examples:
             >>> jikan = Jikan()
