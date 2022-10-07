@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import aiohttp
+from .models import Anime, AnimeSearch
 
 
 class AioJikan:
@@ -55,7 +56,7 @@ class AioJikan:
             return await response.json()
     
 
-    async def get_anime(self, anime_id: int) -> dict:
+    async def get_anime(self, anime_id: int) -> Anime:
         """Get anime information
 
         Args:
@@ -66,15 +67,17 @@ class AioJikan:
 
         Examples:
             >>> aiojikan = AioJikan()
-            >>> aiojikan.get_anime(1)
+            >>> anime = aiojikan.get_anime(1)
         """
 
         endpoint = f"anime/{anime_id}"
-        return await self._get(endpoint)
+        response =  await self._get(endpoint)
+
+        return Anime(**response['data'])
 
 
     async def search_anime(self, search_type: str, query: str, page: int = 1) -> dict:
-        """Search for anime, manga, people, characters, or news
+        """Search for anime
 
         Args:
             search_type (str): Type of search to perform (tv, movie, ova, special, ona, music)
@@ -86,9 +89,11 @@ class AioJikan:
         
         Examples:
             >>> aiojikan = AioJikan()
-            >>> aiojikan.search_anime("anime", "naruto")
+            >>> result = aiojikan.search_anime("tv", "naruto")
         """
 
         endpoint = f"anime"
         params = {"q": query, "page": page, "type": search_type}
-        return await self._get(endpoint, params)
+        response = await self._get(endpoint, params)
+
+        return AnimeSearch(**response)

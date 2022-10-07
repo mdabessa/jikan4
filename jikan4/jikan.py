@@ -1,5 +1,7 @@
 import requests
 
+from .models import Anime, AnimeSearch
+
 
 class Jikan:
     """Jikan wrapper for the jikan.moe API"""
@@ -40,7 +42,7 @@ class Jikan:
         return response.json()
 
 
-    def get_anime(self, anime_id: int) -> dict:
+    def get_anime(self, anime_id: int) -> Anime:
         """Get anime information
 
         Args:
@@ -51,15 +53,16 @@ class Jikan:
 
         Examples:
             >>> jikan = Jikan()
-            >>> jikan.get_anime(1)
+            >>> anime = jikan.get_anime(1)
         """
 
         endpoint = f"anime/{anime_id}"
-        return self._get(endpoint)
-    
+        response = self._get(endpoint)
+        return Anime(**response['data'])
 
-    def search_anime(self, search_type: str, query: str, page: int = 1) -> dict:
-        """Search for anime, manga, people, characters, or news
+
+    def search_anime(self, search_type: str, query: str, page: int = 1) -> AnimeSearch:
+        """Search for anime
 
         Args:
             search_type (str): Type of search to perform (tv, movie, ova, special, ona, music)
@@ -71,9 +74,11 @@ class Jikan:
 
         Examples:
             >>> jikan = Jikan()
-            >>> jikan.search_anime("anime", "naruto")
+            >>> result = jikan.search_anime("tv", "naruto")
         """
 
         endpoint = f"anime"
         params = {"q": query, "page": page, "type": search_type}
-        return self._get(endpoint, params)
+        response = self._get(endpoint, params)
+
+        return AnimeSearch(**response)
