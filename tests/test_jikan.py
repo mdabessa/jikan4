@@ -1,4 +1,3 @@
-import json
 import pytest
 
 from jikan4.jikan import Jikan
@@ -22,3 +21,8 @@ def test_search_anime(jikan: Jikan):
         resp.__dict__
     ), "Response does not match expected response"
     assert len(resp.data) > 0, "Response data is empty"
+
+
+def test_ratelimit(jikan: Jikan):
+    for _ in range(10):
+        jikan.get_anime(1)

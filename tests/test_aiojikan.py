@@ -1,4 +1,3 @@
-import json
 import pytest
 
 from jikan4.aiojikan import AioJikan
@@ -23,3 +22,9 @@ async def test_search_anime(aiojikan: AioJikan):
     assert {"pagination", "data"}.issubset(
         resp.__dict__
     ), "Response does not match expected response"
+
+
+@pytest.mark.asyncio
+async def test_ratelimit(aiojikan: AioJikan):
+    for _ in range(10):
+        await aiojikan.get_anime(1)
