@@ -1,17 +1,21 @@
 from __future__ import annotations
 
 import aiohttp
+from ratelimiter import RateLimiter
 from .models import Anime, AnimeSearch
 
 
 class AioJikan:
     """Async Jikan API Wrapper"""
 
-    def __init__(self, base_url: str = "https://api.jikan.moe/v4") -> None:
+    def __init__(
+        self, base_url: str = "https://api.jikan.moe/v4", rate_limit: int = 60
+    ) -> None:
         """Construct a AioJikan object
 
         Args:
             base_url (str, optional): Base URL for Jikan API. Defaults to "https://api.jikan.moe/v4".
+            rate_limit (int, optional): Rate limit in requests per minute. Defaults to 60.
 
         Returns:
             AioJikan: AioJikan object
@@ -24,6 +28,9 @@ class AioJikan:
         base_url = base_url.rstrip("/")
         self.base_url = base_url
         self.session = aiohttp.ClientSession()
+        self.rate_limiter = RateLimiter(
+            max_calls=rate_limit / 60, period=1
+        )  # Spread out requests over 60 seconds
 
     async def close(self) -> None:
         """Close the aiohttp session"""
@@ -48,9 +55,13 @@ class AioJikan:
         """
 
         url = f"{self.base_url}/{endpoint}"
-        async with self.session.get(url, params=params) as response:
-            response.raise_for_status()
-            return await response.json()
+
+        async with self.rate_limiter:
+            async with self.session.get(url, params=params) as r:
+                r.raise_for_status()
+                response = await r.json()
+
+        return response
 
     async def get_anime(self, anime_id: int) -> Anime:
         """Get anime information
@@ -71,7 +82,9 @@ class AioJikan:
 
         return Anime(**response["data"])
 
-    async def search_anime(self, search_type: str, query: str, page: int = 1) -> AnimeSearch:
+    async def search_anime(
+        self, search_type: str, query: str, page: int = 1
+    ) -> AnimeSearch:
         """Search for anime
 
         Args:

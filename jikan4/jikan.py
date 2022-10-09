@@ -1,4 +1,5 @@
 import requests
+from ratelimiter import RateLimiter
 
 from .models import Anime, AnimeSearch
 
@@ -6,11 +7,14 @@ from .models import Anime, AnimeSearch
 class Jikan:
     """Jikan wrapper for the jikan.moe API"""
 
-    def __init__(self, base_url: str = "https://api.jikan.moe/v4") -> None:
+    def __init__(
+        self, base_url: str = "https://api.jikan.moe/v4", rate_limit: int = 60
+    ):
         """Construct a Jikan object
 
         Args:
             base_url (str, optional): Base URL for Jikan API. Defaults to "https://api.jikan.moe/v4".
+            rate_limit (int, optional): Rate limit in requests per minute. Defaults to 60.
 
         Returns:
             Jikan: Jikan object
@@ -24,6 +28,10 @@ class Jikan:
         self.base_url = base_url
         self.session = requests.Session()
 
+        self.rate_limiter = RateLimiter(
+            max_calls=rate_limit / 60, period=1
+        )  # Spread out requests over 60 seconds
+
     def _get(self, endpoint: str, params: dict = None) -> dict:
         """Make a GET request to the Jikan API
 
@@ -36,7 +44,10 @@ class Jikan:
         """
 
         url = f"{self.base_url}/{endpoint}"
-        response = self.session.get(url, params=params)
+
+        with self.rate_limiter:
+            response = self.session.get(url, params=params)
+
         response.raise_for_status()
         return response.json()
 
