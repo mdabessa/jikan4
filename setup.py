@@ -1,4 +1,5 @@
 from setuptools import setup, find_packages
+from jikan4.__version__ import __version__
 
 
 with open("README.md", "r") as f:
@@ -9,7 +10,7 @@ with open("requirements.txt", "r") as f:
 
 setup(
     name="jikan4",
-    version="0.1.0",
+    version=__version__,
     author="Matheus Bessa",
     description="A Python wrapper for the Jikan API",
     long_description=page_description,
