@@ -29,7 +29,7 @@ class AioJikan:
         base_url = base_url.rstrip("/")
         self.base_url = base_url
         self.session = aiohttp.ClientSession()
-        self.rate_limiter = AsyncLimiter(calls_limit=rate_limit/60, period=1)
+        self.rate_limiter = AsyncLimiter(calls_limit=rate_limit / 60, period=1)
         self._get = self.rate_limiter.__call__(self._get)
 
     async def close(self) -> None:

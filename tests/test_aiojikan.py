@@ -6,8 +6,10 @@ from jikan4.aiojikan import AioJikan
 
 @pytest.fixture
 def aiojikan():
-    time.sleep(1) # This is needed to prevent 429 Too Many Requests when resetting the rate limit
-    
+    time.sleep(
+        1
+    )  # This is needed to prevent 429 Too Many Requests when resetting the rate limit
+
     return AioJikan()
 
 

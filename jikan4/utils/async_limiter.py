@@ -2,7 +2,7 @@ import asyncio
 import time
 
 
-class AsyncLimiter: 
+class AsyncLimiter:
     def __init__(self, calls_limit: int = 5, period: int = 1, spread: bool = False):
         if spread:
             self.calls_limit = 1
@@ -10,7 +10,7 @@ class AsyncLimiter:
         else:
             self.calls_limit = calls_limit
             self.period = period
-        
+
         self.semaphore = asyncio.Semaphore(calls_limit)
         self.requests_finish_time = []
 

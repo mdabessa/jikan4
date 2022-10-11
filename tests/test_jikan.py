@@ -6,7 +6,9 @@ from jikan4.jikan import Jikan
 
 @pytest.fixture
 def jikan():
-    time.sleep(1) # This is needed to prevent 429 Too Many Requests when resetting the rate limit
+    time.sleep(
+        1
+    )  # This is needed to prevent 429 Too Many Requests when resetting the rate limit
 
     return Jikan()
 
