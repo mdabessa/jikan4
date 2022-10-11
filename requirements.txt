@@ -1,4 +1,3 @@
 aiohttp
-pydantic
 requests
-ratelimiter @ git+https://github.com/PikaFan123/ratelimiter.git
+pydantic

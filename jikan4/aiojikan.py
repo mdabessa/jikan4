@@ -1,8 +1,9 @@
 from __future__ import annotations
 
 import aiohttp
-from ratelimiter import RateLimiter
+
 from .models import Anime, AnimeSearch
+from .utils.async_limiter import AsyncLimiter
 
 
 class AioJikan:
@@ -28,9 +29,8 @@ class AioJikan:
         base_url = base_url.rstrip("/")
         self.base_url = base_url
         self.session = aiohttp.ClientSession()
-        self.rate_limiter = RateLimiter(
-            max_calls=rate_limit / 60, period=1
-        )  # Spread out requests over 60 seconds
+        self.rate_limiter = AsyncLimiter(calls_limit=rate_limit/60, period=1)
+        self._get = self.rate_limiter.__call__(self._get)
 
     async def close(self) -> None:
         """Close the aiohttp session"""
@@ -56,10 +56,9 @@ class AioJikan:
 
         url = f"{self.base_url}/{endpoint}"
 
-        async with self.rate_limiter:
-            async with self.session.get(url, params=params) as r:
-                r.raise_for_status()
-                response = await r.json()
+        async with self.session.get(url, params=params) as r:
+            r.raise_for_status()
+            response = await r.json()
 
         return response
 

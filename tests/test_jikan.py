@@ -1,10 +1,13 @@
 import pytest
+import time
 
 from jikan4.jikan import Jikan
 
 
 @pytest.fixture
 def jikan():
+    time.sleep(1) # This is needed to prevent 429 Too Many Requests when resetting the rate limit
+
     return Jikan()
 
 
@@ -24,5 +27,11 @@ def test_search_anime(jikan: Jikan):
 
 
 def test_ratelimit(jikan: Jikan):
+    start = time.time()
     for _ in range(10):
         jikan.get_anime(1)
+    end = time.time()
+
+    max_per_minute = jikan.rate_limiter.calls_limit / jikan.rate_limiter.period
+
+    assert end - start > 10 / (60 / max_per_minute), "Rate limit not working"

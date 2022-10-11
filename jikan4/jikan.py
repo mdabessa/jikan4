@@ -1,7 +1,7 @@
 import requests
-from ratelimiter import RateLimiter
 
 from .models import Anime, AnimeSearch
+from .utils.limiter import Limiter
 
 
 class Jikan:
@@ -27,10 +27,8 @@ class Jikan:
         base_url = base_url.rstrip("/")
         self.base_url = base_url
         self.session = requests.Session()
-
-        self.rate_limiter = RateLimiter(
-            max_calls=rate_limit / 60, period=1
-        )  # Spread out requests over 60 seconds
+        self.rate_limiter = Limiter(calls_limit=rate_limit, period=60, spread=True)
+        self._get = self.rate_limiter.__call__(self._get)
 
     def _get(self, endpoint: str, params: dict = None) -> dict:
         """Make a GET request to the Jikan API
@@ -45,8 +43,7 @@ class Jikan:
 
         url = f"{self.base_url}/{endpoint}"
 
-        with self.rate_limiter:
-            response = self.session.get(url, params=params)
+        response = self.session.get(url, params=params)
 
         response.raise_for_status()
         return response.json()
