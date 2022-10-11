@@ -28,7 +28,6 @@ class AioJikan:
 
         base_url = base_url.rstrip("/")
         self.base_url = base_url
-        self.session = aiohttp.ClientSession()
         self.rate_limiter = AsyncLimiter(calls_limit=rate_limit / 60, period=1)
         self._get = self.rate_limiter.__call__(self._get)
 
@@ -56,11 +55,9 @@ class AioJikan:
 
         url = f"{self.base_url}/{endpoint}"
 
-        async with self.session.get(url, params=params) as r:
-            r.raise_for_status()
-            response = await r.json()
-
-        return response
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url, params=params) as response:
+                return await response.json()
 
     async def get_anime(self, anime_id: int) -> Anime:
         """Get anime information
