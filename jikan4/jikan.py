@@ -66,6 +66,24 @@ class Jikan:
         response = self._get(endpoint)
         return Anime(**response["data"])
 
+    def get_anime_full(self, anime_id: int) -> Anime:
+        """Get anime information with full details
+
+        Args:
+            anime_id (int): Anime ID
+
+        Returns:
+            Anime: Anime object
+
+        Examples:
+            >>> jikan = Jikan()
+            >>> anime = jikan.get_anime_full(1)
+        """
+
+        endpoint = f"anime/{anime_id}/full"
+        response = self._get(endpoint)
+        return Anime(**response["data"])
+
     def search_anime(self, search_type: str, query: str, page: int = 1) -> AnimeSearch:
         """Search for anime
 

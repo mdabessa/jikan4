@@ -21,6 +21,14 @@ async def test_get_anime(aiojikan: AioJikan):
 
 
 @pytest.mark.asyncio
+async def test_get_anime_full(aiojikan: AioJikan):
+    resp = await aiojikan.get_anime_full(1)
+
+    assert resp.title == "Cowboy Bebop", "Response does not match expected response"
+    assert len(resp.external) > 0, "Response external links is empty"
+
+
+@pytest.mark.asyncio
 async def test_search_anime(aiojikan: AioJikan):
     resp = await aiojikan.search_anime("anime", "naruto")
 

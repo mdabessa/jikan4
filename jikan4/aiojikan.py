@@ -78,6 +78,25 @@ class AioJikan:
 
         return Anime(**response["data"])
 
+    async def get_anime_full(self, anime_id: int) -> Anime:
+        """Get anime information with full details
+
+        Args:
+            anime_id (int): Anime ID
+
+        Returns:
+            Anime: Anime object
+
+        Examples:
+            >>> aiojikan = AioJikan()
+            >>> anime = aiojikan.get_anime_full(1)
+        """
+
+        endpoint = f"anime/{anime_id}/full"
+        response = await self._get(endpoint)
+
+        return Anime(**response["data"])
+
     async def search_anime(
         self, search_type: str, query: str, page: int = 1
     ) -> AnimeSearch:
