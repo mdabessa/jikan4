@@ -26,6 +26,13 @@ def test_get_anime_full(jikan: Jikan):
     assert len(resp.external) > 0, "Response external links is empty"
 
 
+def test_get_anime_characters(jikan: Jikan):
+    resp = jikan.get_anime_characters(1)
+
+    assert len(resp.data) > 0, "Response characters is empty"
+    assert len(resp.data[0].voice_actors) > 0, "Response voice actors is empty"
+
+
 def test_search_anime(jikan: Jikan):
     resp = jikan.search_anime("tv", "naruto")
 

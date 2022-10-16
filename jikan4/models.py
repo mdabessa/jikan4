@@ -144,6 +144,25 @@ class Pagination(BaseModel):
     items: Items = Items()
 
 
+class Character(BaseModel):
+    mal_id: int | None = None
+    url: str | None = None
+    images: Image = Image()
+    name: str | None = None
+
+
+class Person(BaseModel):
+    mal_id: int | None = None
+    url: str | None = None
+    images: Image = Image()
+    name: str | None = None
+
+
+class VoiceActor(BaseModel):
+    person: Person = Person()
+    language: str | None = None
+
+
 class Anime(BaseModel):
     mal_id: int
     url: str
@@ -189,4 +208,15 @@ class Anime(BaseModel):
 
 class AnimeSearch(BaseModel):
     data: List[Anime] = []
+    pagination: Pagination = Pagination()
+
+
+class AnimeCharacter(BaseModel):
+    character: Character = Character()
+    role: str | None = None
+    voice_actors: List[VoiceActor] = []
+
+
+class AnimeCharacters(BaseModel):
+    data: List[AnimeCharacter] = []
     pagination: Pagination = Pagination()
