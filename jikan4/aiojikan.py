@@ -96,7 +96,6 @@ class AioJikan:
         response = await self._get(endpoint)
 
         return Anime(**response["data"])
-    
 
     async def get_anime_characters(self, anime_id: int) -> AnimeCharacters:
         """Get anime characters
@@ -116,7 +115,7 @@ class AioJikan:
         response = await self._get(endpoint)
 
         return AnimeCharacters(**response)
-    
+
     async def get_anime_staff(self, anime_id: int) -> AnimeStaff:
         """Get anime staff
 

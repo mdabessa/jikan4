@@ -102,7 +102,6 @@ class Jikan:
         response = self._get(endpoint)
         return AnimeCharacters(**response)
 
-
     def get_anime_staff(self, anime_id: int) -> AnimeStaff:
         """Get anime staff
 
@@ -120,7 +119,6 @@ class Jikan:
         endpoint = f"anime/{anime_id}/staff"
         response = self._get(endpoint)
         return AnimeStaff(**response)
-
 
     def search_anime(self, search_type: str, query: str, page: int = 1) -> AnimeSearch:
         """Search for anime
