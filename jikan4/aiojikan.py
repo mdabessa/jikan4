@@ -70,7 +70,7 @@ class AioJikan:
 
         Examples:
             >>> aiojikan = AioJikan()
-            >>> anime = aiojikan.get_anime(1)
+            >>> anime = await aiojikan.get_anime(1)
         """
 
         endpoint = f"anime/{anime_id}"
@@ -89,7 +89,7 @@ class AioJikan:
 
         Examples:
             >>> aiojikan = AioJikan()
-            >>> anime = aiojikan.get_anime_full(1)
+            >>> anime = await aiojikan.get_anime_full(1)
         """
 
         endpoint = f"anime/{anime_id}/full"
@@ -108,7 +108,7 @@ class AioJikan:
 
         Examples:
             >>> aiojikan = AioJikan()
-            >>> characters = aiojikan.get_anime_characters(1)
+            >>> characters = await aiojikan.get_anime_characters(1)
         """
 
         endpoint = f"anime/{anime_id}/characters"
@@ -127,7 +127,7 @@ class AioJikan:
 
         Examples:
             >>> aiojikan = AioJikan()
-            >>> staff = aiojikan.get_anime_staff(1)
+            >>> staff = await aiojikan.get_anime_staff(1)
         """
 
         endpoint = f"anime/{anime_id}/staff"
@@ -150,7 +150,7 @@ class AioJikan:
 
         Examples:
             >>> aiojikan = AioJikan()
-            >>> result = aiojikan.search_anime("tv", "naruto")
+            >>> result = await aiojikan.search_anime("tv", "naruto")
         """
 
         endpoint = f"anime"
