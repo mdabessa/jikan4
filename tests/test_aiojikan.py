@@ -37,6 +37,14 @@ async def test_get_anime_characters(aiojikan: AioJikan):
 
 
 @pytest.mark.asyncio
+async def test_get_anime_staff(aiojikan: AioJikan):
+    resp = await aiojikan.get_anime_staff(1)
+
+    assert len(resp.data) > 0, "Response staff is empty"
+    assert len(resp.data[0].positions) > 0, "Response positions is empty"
+
+
+@pytest.mark.asyncio
 async def test_search_anime(aiojikan: AioJikan):
     resp = await aiojikan.search_anime("anime", "naruto")
 

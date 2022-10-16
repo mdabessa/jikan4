@@ -33,6 +33,13 @@ def test_get_anime_characters(jikan: Jikan):
     assert len(resp.data[0].voice_actors) > 0, "Response voice actors is empty"
 
 
+def test_get_anime_staff(jikan: Jikan):
+    resp = jikan.get_anime_staff(1)
+
+    assert len(resp.data) > 0, "Response staff is empty"
+    assert len(resp.data[0].positions) > 0, "Response positions is empty"
+
+
 def test_search_anime(jikan: Jikan):
     resp = jikan.search_anime("tv", "naruto")
 

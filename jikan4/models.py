@@ -163,6 +163,11 @@ class VoiceActor(BaseModel):
     language: str | None = None
 
 
+class Staff(BaseModel):
+    person: Person = Person()
+    positions: List[str] = []
+
+
 class Anime(BaseModel):
     mal_id: int
     url: str
@@ -219,4 +224,9 @@ class AnimeCharacter(BaseModel):
 
 class AnimeCharacters(BaseModel):
     data: List[AnimeCharacter] = []
+    pagination: Pagination = Pagination()
+
+
+class AnimeStaff(BaseModel):
+    data: List[Staff] = []
     pagination: Pagination = Pagination()
