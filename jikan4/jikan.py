@@ -1,6 +1,13 @@
 import requests
 
-from .models import Anime, AnimeSearch, AnimeCharacters, AnimeStaff, AnimeEpisodes
+from .models import (
+    Anime,
+    AnimeSearch,
+    AnimeCharacters,
+    AnimeStaff,
+    AnimeEpisodes,
+    Episode,
+)
 from .utils.limiter import Limiter
 
 
@@ -137,6 +144,25 @@ class Jikan:
         endpoint = f"anime/{anime_id}/episodes"
         response = self._get(endpoint)
         return AnimeEpisodes(**response)
+
+    def get_anime_episode(self, anime_id: int, episode: int) -> Episode:
+        """Get anime episode
+
+        Args:
+            anime_id (int): Anime ID
+            episode (int): Episode number
+
+        Returns:
+            Episode: Episode object
+
+        Examples:
+            >>> jikan = Jikan()
+            >>> episode = jikan.get_anime_episode(1, 1)
+        """
+
+        endpoint = f"anime/{anime_id}/episodes/{episode}"
+        response = self._get(endpoint)
+        return Episode(**response["data"])
 
     def search_anime(self, search_type: str, query: str, page: int = 1) -> AnimeSearch:
         """Search for anime

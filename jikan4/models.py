@@ -178,6 +178,7 @@ class Episode(BaseModel):
     aired: str | None = None
     filler: bool = False
     recap: bool = False
+    synopsis: str | None = None
     forum_url: str | None = None
 
 

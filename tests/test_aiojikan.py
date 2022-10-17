@@ -52,6 +52,13 @@ async def test_get_anime_episodes(aiojikan: AioJikan):
 
 
 @pytest.mark.asyncio
+async def test_get_anime_episode(aiojikan: AioJikan):
+    resp = await aiojikan.get_anime_episode(1, 1)
+
+    assert resp.synopsis is not None, "Response synopsis is empty"
+
+
+@pytest.mark.asyncio
 async def test_search_anime(aiojikan: AioJikan):
     resp = await aiojikan.search_anime("anime", "naruto")
 

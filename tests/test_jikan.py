@@ -46,6 +46,12 @@ def test_get_anime_episodes(jikan: Jikan):
     assert len(resp.data) > 0, "Response episodes is empty"
 
 
+def test_get_anime_episode(jikan: Jikan):
+    resp = jikan.get_anime_episode(1, 1)
+
+    assert resp.synopsis is not None, "Response synopsis is empty"
+
+
 def test_search_anime(jikan: Jikan):
     resp = jikan.search_anime("tv", "naruto")
 
