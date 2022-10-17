@@ -40,6 +40,12 @@ def test_get_anime_staff(jikan: Jikan):
     assert len(resp.data[0].positions) > 0, "Response positions is empty"
 
 
+def test_get_anime_episodes(jikan: Jikan):
+    resp = jikan.get_anime_episodes(1)
+
+    assert len(resp.data) > 0, "Response episodes is empty"
+
+
 def test_search_anime(jikan: Jikan):
     resp = jikan.search_anime("tv", "naruto")
 

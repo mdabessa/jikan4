@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import aiohttp
 
-from .models import Anime, AnimeSearch, AnimeCharacters, AnimeStaff
+from .models import Anime, AnimeSearch, AnimeCharacters, AnimeStaff, AnimeEpisodes
 from .utils.async_limiter import AsyncLimiter
 
 
@@ -134,6 +134,25 @@ class AioJikan:
         response = await self._get(endpoint)
 
         return AnimeStaff(**response)
+
+    async def get_anime_episodes(self, anime_id: int) -> AnimeEpisodes:
+        """Get anime episodes
+
+        Args:
+            anime_id (int): Anime ID
+
+        Returns:
+            AnimeEpisodes: AnimeEpisodes object
+
+        Examples:
+            >>> aiojikan = AioJikan()
+            >>> episodes = await aiojikan.get_anime_episodes(1)
+        """
+
+        endpoint = f"anime/{anime_id}/episodes"
+        response = await self._get(endpoint)
+
+        return AnimeEpisodes(**response)
 
     async def search_anime(
         self, search_type: str, query: str, page: int = 1

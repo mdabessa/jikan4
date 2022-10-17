@@ -168,6 +168,19 @@ class Staff(BaseModel):
     positions: List[str] = []
 
 
+class Episode(BaseModel):
+    mal_id: int | None = None
+    url: str | None = None
+    title: str | None = None
+    title_japanese: str | None = None
+    title_romanji: str | None = None
+    duration: float | None = None
+    aired: str | None = None
+    filler: bool = False
+    recap: bool = False
+    forum_url: str | None = None
+
+
 class Anime(BaseModel):
     mal_id: int
     url: str
@@ -229,4 +242,9 @@ class AnimeCharacters(BaseModel):
 
 class AnimeStaff(BaseModel):
     data: List[Staff] = []
+    pagination: Pagination = Pagination()
+
+
+class AnimeEpisodes(BaseModel):
+    data: List[Episode] = []
     pagination: Pagination = Pagination()
