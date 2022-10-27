@@ -34,8 +34,10 @@ class Jikan:
         base_url = base_url.rstrip("/")
         self.base_url = base_url
         self.session = requests.Session()
-        self.rate_limiter = Limiter(calls_limit=rate_limit, period=60, spread=True)
-        self._get = self.rate_limiter.__call__(self._get)
+
+        if rate_limit:
+            self.rate_limiter = Limiter(calls_limit=rate_limit, period=60, spread=True)
+            self._get = self.rate_limiter.__call__(self._get)
 
     def _get(self, endpoint: str, params: dict = None) -> dict:
         """Make a GET request to the Jikan API
