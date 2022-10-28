@@ -7,6 +7,7 @@ from .models import (
     AnimeStaff,
     AnimeEpisodes,
     Episode,
+    AnimeNews,
 )
 from .utils.limiter import Limiter
 
@@ -165,6 +166,30 @@ class Jikan:
         endpoint = f"anime/{anime_id}/episodes/{episode}"
         response = self._get(endpoint)
         return Episode(**response["data"])
+
+    def get_anime_news(self, anime_id: int, page: int = None) -> AnimeNews:
+        """Get anime news
+
+        Args:
+            anime_id (int): Anime ID
+            page (int, optional): Page number. Defaults to None.
+
+        Returns:
+            AnimeNews: AnimeNews object
+
+        Examples:
+            >>> jikan = Jikan()
+            >>> news = jikan.get_anime_news(1)
+        """
+
+        params = {}
+        if page:
+            params["page"] = page
+
+        endpoint = f"anime/{anime_id}/news"
+        response = self._get(endpoint, params=params)
+
+        return AnimeNews(**response)
 
     def search_anime(self, search_type: str, query: str, page: int = 1) -> AnimeSearch:
         """Search for anime

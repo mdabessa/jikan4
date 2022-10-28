@@ -9,6 +9,7 @@ from .models import (
     AnimeStaff,
     AnimeEpisodes,
     Episode,
+    AnimeNews,
 )
 from .utils.async_limiter import AsyncLimiter
 
@@ -182,6 +183,30 @@ class AioJikan:
         response = await self._get(endpoint)
 
         return Episode(**response["data"])
+
+    async def get_anime_news(self, anime_id: int, page: int = None) -> AnimeNews:
+        """Get anime news
+
+        Args:
+            anime_id (int): Anime ID
+            page (int, optional): Page number. Defaults to None.
+
+        Returns:
+            AnimeNews: AnimeNews object
+
+        Examples:
+            >>> aiojikan = AioJikan()
+            >>> news = await aiojikan.get_anime_news(1)
+        """
+
+        params = {}
+        if page:
+            params["page"] = page
+
+        endpoint = f"anime/{anime_id}/news"
+        response = await self._get(endpoint, params=params)
+
+        return AnimeNews(**response)
 
     async def search_anime(
         self, search_type: str, query: str, page: int = 1

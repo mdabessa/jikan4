@@ -52,6 +52,15 @@ def test_get_anime_episode(jikan: Jikan):
     assert resp.synopsis is not None, "Response synopsis is empty"
 
 
+def test_get_anime_news(jikan: Jikan):
+    resp = jikan.get_anime_news(1)
+
+    assert {"pagination", "data"}.issubset(
+        resp.__dict__
+    ), "Response does not match expected response"
+    assert len(resp.data) > 0, "Response data is empty"
+
+
 def test_search_anime(jikan: Jikan):
     resp = jikan.search_anime("tv", "naruto")
 
