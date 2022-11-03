@@ -11,19 +11,21 @@ from .models import (
     Episode,
 )
 from .utils.async_limiter import AsyncLimiter
+from .utils.cache import LRUCache
 
 
 class AioJikan:
     """Async Jikan API Wrapper"""
 
     def __init__(
-        self, base_url: str = "https://api.jikan.moe/v4", rate_limit: int = 60
+        self, base_url: str = "https://api.jikan.moe/v4", rate_limit: int = 60, max_cache: int = 0
     ) -> None:
         """Construct a AioJikan object
 
         Args:
             base_url (str, optional): Base URL for Jikan API. Defaults to "https://api.jikan.moe/v4".
             rate_limit (int, optional): Rate limit in requests per minute. Defaults to 60.
+            max_cache (int, optional): Maximum number of cached requests, if 0 no caching is done. Defaults to 0.
 
         Returns:
             AioJikan: AioJikan object
@@ -40,6 +42,11 @@ class AioJikan:
             self.rate_limiter = AsyncLimiter(calls_limit=rate_limit / 60, period=1)
             self._get = self.rate_limiter.__call__(self._get)
 
+        if max_cache:
+            self.cache = LRUCache(max_cache)
+            self._get = self.cache.__call__(self._get)
+
+
     async def close(self) -> None:
         """Close the aiohttp session"""
 
@@ -51,7 +58,7 @@ class AioJikan:
     async def __aexit__(self, exc_type, exc, tb) -> None:
         await self.close()
 
-    async def _get(self, endpoint: str, params: dict = None) -> dict:
+    async def _get(self, endpoint: str, *, params: dict = None) -> dict:
         """Make a GET request to the Jikan API
 
         Args:
@@ -203,6 +210,6 @@ class AioJikan:
 
         endpoint = f"anime"
         params = {"q": query, "page": page, "type": search_type}
-        response = await self._get(endpoint, params)
+        response = await self._get(endpoint, params=params)
 
         return AnimeSearch(**response)

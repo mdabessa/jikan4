@@ -1,3 +1,4 @@
+import asyncio
 from collections import OrderedDict, namedtuple
 from typing import Any, Callable
 
@@ -26,14 +27,26 @@ class LRUCache:
         return repr(self.cache)
 
     def __call__(self, func) -> Callable:
-        def wrapper(*args, **kwargs):
-            key = self.to_key(*args, **kwargs)
-            if key in self.cache:
-                return self.cache[key]
-            else:
-                value = func(*args, **kwargs)
-                self[key] = value
-                return value
+
+        if not asyncio.iscoroutinefunction(func):
+            def wrapper(*args, **kwargs):
+                key = self.to_key(*args, **kwargs)
+                if key in self.cache:
+                    return self.cache[key]
+                else:
+                    value = func(*args, **kwargs)
+                    self[key] = value
+                    return value
+        else:
+            async def wrapper(*args, **kwargs):
+                key = self.to_key(*args, **kwargs)
+                if key in self.cache:
+                    return self.cache[key]
+                else:
+                    value = await func(*args, **kwargs)
+                    self[key] = value
+                    return value
+
 
         return wrapper
 
