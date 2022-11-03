@@ -18,7 +18,10 @@ class AioJikan:
     """Async Jikan API Wrapper"""
 
     def __init__(
-        self, base_url: str = "https://api.jikan.moe/v4", rate_limit: int = 60, max_cache: int = 0
+        self,
+        base_url: str = "https://api.jikan.moe/v4",
+        rate_limit: int = 60,
+        max_cache: int = 0,
     ) -> None:
         """Construct a AioJikan object
 
@@ -45,7 +48,6 @@ class AioJikan:
         if max_cache:
             self.cache = LRUCache(max_cache)
             self._get = self.cache.__call__(self._get)
-
 
     async def close(self) -> None:
         """Close the aiohttp session"""

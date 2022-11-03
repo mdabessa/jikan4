@@ -30,6 +30,7 @@ async def test_get_anime_with_cache(aiojikan: AioJikan):
     assert len(aiojikan.cache) == 1, "Cache length is not correct"
     assert elapsed < 1, "Cache is not working"
 
+
 @pytest.mark.asyncio
 async def test_search_anime_with_cache(aiojikan: AioJikan):
     aiojikan.cache.clear()
@@ -37,19 +38,18 @@ async def test_search_anime_with_cache(aiojikan: AioJikan):
 
     # Search with empty cache
     for search in searchs:
-        resp = await aiojikan.search_anime('tv', search)
+        resp = await aiojikan.search_anime("tv", search)
         assert len(resp.data) > 0, "Response does not match expected response"
 
     # Search when already cached (should be faster)
     start = time.time()
     for search in searchs:
-        resp = await aiojikan.search_anime('tv', search)
+        resp = await aiojikan.search_anime("tv", search)
         assert len(resp.data) > 0, "Response does not match expected response"
 
     end = time.time()
 
     elapsed = end - start
-
 
     assert len(aiojikan.cache) == len(searchs), "Cache length is not correct"
     assert elapsed < 1, "Cache is not working"

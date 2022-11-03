@@ -9,7 +9,7 @@ class LRUCache:
         self.cache = OrderedDict()
 
     def __getitem__(self, key) -> Any:
-        return self.cache[key] # does not update order
+        return self.cache[key]  # does not update order
 
     def __setitem__(self, key, value) -> None:
         self.cache[key] = value
@@ -22,13 +22,14 @@ class LRUCache:
 
     def __len__(self) -> int:
         return len(self.cache)
-    
+
     def __repr__(self) -> str:
         return repr(self.cache)
 
     def __call__(self, func) -> Callable:
 
         if not asyncio.iscoroutinefunction(func):
+
             def wrapper(*args, **kwargs):
                 key = self.to_key(*args, **kwargs)
                 if key in self.cache:
@@ -37,7 +38,9 @@ class LRUCache:
                     value = func(*args, **kwargs)
                     self[key] = value
                     return value
+
         else:
+
             async def wrapper(*args, **kwargs):
                 key = self.to_key(*args, **kwargs)
                 if key in self.cache:
@@ -46,7 +49,6 @@ class LRUCache:
                     value = await func(*args, **kwargs)
                     self[key] = value
                     return value
-
 
         return wrapper
 
@@ -58,7 +60,9 @@ class LRUCache:
             return None
 
         keys, values = zip(*d.items())
-        values = [self.dict_to_namedtuple(v) if isinstance(v, dict) else v for v in values]
+        values = [
+            self.dict_to_namedtuple(v) if isinstance(v, dict) else v for v in values
+        ]
 
         return namedtuple("CacheEntry", keys)(*values)
 

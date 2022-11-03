@@ -16,7 +16,10 @@ class Jikan:
     """Jikan wrapper for the jikan.moe API"""
 
     def __init__(
-        self, base_url: str = "https://api.jikan.moe/v4", rate_limit: int = 60, max_cache: int = 0
+        self,
+        base_url: str = "https://api.jikan.moe/v4",
+        rate_limit: int = 60,
+        max_cache: int = 0,
     ):
         """Construct a Jikan object
 
@@ -45,7 +48,6 @@ class Jikan:
         if max_cache:
             self.cache = LRUCache(max_cache)
             self._get = self.cache.__call__(self._get)
-
 
     def _get(self, endpoint: str, *, params: dict = None) -> dict:
         """Make a GET request to the Jikan API

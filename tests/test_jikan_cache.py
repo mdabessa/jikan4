@@ -36,19 +36,18 @@ def test_search_anime_with_cache(jikan: Jikan):
 
     # Search with empty cache
     for search in searchs:
-        resp = jikan.search_anime('tv', search)
+        resp = jikan.search_anime("tv", search)
         assert len(resp.data) > 0, "Response does not match expected response"
 
     # Search when already cached (should be faster)
     start = time.time()
     for search in searchs:
-        resp = jikan.search_anime('tv', search)
+        resp = jikan.search_anime("tv", search)
         assert len(resp.data) > 0, "Response does not match expected response"
 
     end = time.time()
 
     elapsed = end - start
-
 
     assert len(jikan.cache) == len(searchs), "Cache length is not correct"
     assert elapsed < 1, "Cache is not working"

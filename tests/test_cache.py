@@ -6,6 +6,7 @@ def test_cache_init():
     assert cache.maxsize == 128, "Default maxsize should be 128"
     assert len(cache) == 0, "Cache should be empty"
 
+
 def test_cache_decorator():
     cache = LRUCache(maxsize=2)
 
@@ -25,5 +26,5 @@ def test_cache_decorator():
     assert cache.to_key(1, 3) not in cache, "Cache should not have (1, 3) key"
     assert cache.to_key(1, 5) not in cache, "Cache should not have (1, 5) key"
 
-    assert add('a', b='b') == 'ab', "Should return 'ab'"
-    assert cache.to_key('a', b='b') in cache, "Cache should have ('a', b='b') key"
+    assert add("a", b="b") == "ab", "Should return 'ab'"
+    assert cache.to_key("a", b="b") in cache, "Cache should have ('a', b='b') key"
