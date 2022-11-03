@@ -9,19 +9,21 @@ from .models import (
     Episode,
 )
 from .utils.limiter import Limiter
+from .utils.cache import LRUCache
 
 
 class Jikan:
     """Jikan wrapper for the jikan.moe API"""
 
     def __init__(
-        self, base_url: str = "https://api.jikan.moe/v4", rate_limit: int = 60
+        self, base_url: str = "https://api.jikan.moe/v4", rate_limit: int = 60, max_cache: int = 0
     ):
         """Construct a Jikan object
 
         Args:
             base_url (str, optional): Base URL for Jikan API. Defaults to "https://api.jikan.moe/v4".
             rate_limit (int, optional): Rate limit in requests per minute. Defaults to 60.
+            max_cache (int, optional): Maximum number of items to cache, if 0 no caching is done. Defaults to 0.
 
         Returns:
             Jikan: Jikan object
@@ -39,7 +41,13 @@ class Jikan:
             self.rate_limiter = Limiter(calls_limit=rate_limit, period=60, spread=True)
             self._get = self.rate_limiter.__call__(self._get)
 
-    def _get(self, endpoint: str, params: dict = None) -> dict:
+        # Cache wrappers after rate limiter to avoid caching rate limited requests
+        if max_cache:
+            self.cache = LRUCache(max_cache)
+            self._get = self.cache.__call__(self._get)
+
+
+    def _get(self, endpoint: str, *, params: dict = None) -> dict:
         """Make a GET request to the Jikan API
 
         Args:
@@ -184,6 +192,6 @@ class Jikan:
 
         endpoint = f"anime"
         params = {"q": query, "page": page, "type": search_type}
-        response = self._get(endpoint, params)
+        response = self._get(endpoint, params=params)
 
         return AnimeSearch(**response)

@@ -20,10 +20,10 @@ def test_cache_decorator():
     assert add(4, 3) == 7, "Should return 7"
 
     assert len(cache) == 2, "Cache should have 2 items"
-    assert ((1, 2) , frozenset({})) in cache, "Cache should have (1, 2) key"
-    assert ((4, 3) , frozenset({})) in cache, "Cache should have (4, 3) key"
-    assert ((1, 3) , frozenset({})) not in cache, "Cache should not have (1, 3) key"
-    assert ((1, 5) , frozenset({})) not in cache, "Cache should not have (1, 5) key"
+    assert cache.to_key(1, 2) in cache, "Cache should have (1, 2) key"
+    assert cache.to_key(4, 3) in cache, "Cache should have (4, 3) key"
+    assert cache.to_key(1, 3) not in cache, "Cache should not have (1, 3) key"
+    assert cache.to_key(1, 5) not in cache, "Cache should not have (1, 5) key"
 
     assert add('a', b='b') == 'ab', "Should return 'ab'"
-    assert (('a',), frozenset({('b', 'b')})) in cache, "Cache should have ('a', b='b') key"
+    assert cache.to_key('a', b='b') in cache, "Cache should have ('a', b='b') key"

@@ -1,4 +1,4 @@
-from collections import OrderedDict
+from collections import OrderedDict, namedtuple
 from typing import Any, Callable
 
 
@@ -27,7 +27,7 @@ class LRUCache:
 
     def __call__(self, func) -> Callable:
         def wrapper(*args, **kwargs):
-            key = (args, frozenset(kwargs.items()))
+            key = self.to_key(*args, **kwargs)
             if key in self.cache:
                 return self.cache[key]
             else:
@@ -39,3 +39,15 @@ class LRUCache:
 
     def clear(self) -> None:
         self.cache.clear()
+
+    def dict_to_namedtuple(self, d: dict) -> namedtuple:
+        if not d:
+            return None
+
+        keys, values = zip(*d.items())
+        values = [self.dict_to_namedtuple(v) if isinstance(v, dict) else v for v in values]
+
+        return namedtuple("CacheEntry", keys)(*values)
+
+    def to_key(self, *args, **kwargs) -> Any:
+        return self.dict_to_namedtuple({"args": args, "kwargs": kwargs})
