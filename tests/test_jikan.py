@@ -23,7 +23,7 @@ def test_get_anime_full(jikan: Jikan):
     resp = jikan.get_anime_full(1)
 
     assert resp.title == "Cowboy Bebop", "Response does not match expected response"
-    assert len(resp.external) > 0, "Response external links is empty"
+    assert len(resp.streaming) > 0, "Response streaming list is empty"
 
 
 def test_get_anime_characters(jikan: Jikan):
