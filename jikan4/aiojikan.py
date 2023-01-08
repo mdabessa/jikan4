@@ -67,6 +67,7 @@ class AioJikan:
 
         async with aiohttp.ClientSession() as session:
             async with session.get(url, params=params) as response:
+                response.raise_for_status()
                 return await response.json()
 
     async def get_anime(self, anime_id: int) -> Anime:
