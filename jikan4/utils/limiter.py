@@ -17,7 +17,6 @@ class Limiter:
         def wrapper(*args, **kwargs):
             self.calls += 1
             if self.calls >= self.calls_limit:
-                print("sleeping for", self.period)
                 time.sleep(self.period)
                 self.calls = 0
 
