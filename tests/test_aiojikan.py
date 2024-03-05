@@ -69,11 +69,12 @@ async def test_get_anime_news(aiojikan: AioJikan):
 
 @pytest.mark.asyncio
 async def test_search_anime(aiojikan: AioJikan):
-    resp = await aiojikan.search_anime("anime", "naruto")
+    resp = await aiojikan.search_anime("tv", "naruto")
 
     assert {"pagination", "data"}.issubset(
         resp.__dict__
     ), "Response does not match expected response"
+    assert len(resp.data) > 0, "Response data is empty"
 
 
 @pytest.mark.asyncio
