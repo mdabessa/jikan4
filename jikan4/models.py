@@ -267,3 +267,25 @@ class AnimeEpisodes(BaseModel):
 class AnimeNews(BaseModel):
     data: List[News] = []
     pagination: Pagination = Pagination()
+
+
+class Comment(BaseModel):
+    url: str
+    author_username: str
+    author_url: str
+    date: str
+
+
+class Forum(BaseModel):
+    mal_id: int
+    url: str
+    title: str
+    date: str
+    author_username: str
+    author_url: str
+    comments: int
+    last_comment: Comment
+
+
+class AnimeForum(BaseModel):
+    data: List[Forum] = []

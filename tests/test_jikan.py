@@ -79,3 +79,11 @@ def test_ratelimit(jikan: Jikan):
     max_per_minute = jikan.rate_limiter.calls_limit / jikan.rate_limiter.period
 
     assert end - start > 10 / (60 / max_per_minute), "Rate limit not working"
+
+
+def test_get_anime_forum(jikan: Jikan):
+    resp = jikan.get_anime_forum(1)
+
+    assert len(resp.data) > 0, "Response data is empty"
+    assert resp.data[0].url is not None, "Response url is empty"
+    assert resp.data[0].last_comment.url is not None, "Response last_comment url is empty"

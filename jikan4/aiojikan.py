@@ -10,6 +10,7 @@ from .models import (
     AnimeEpisodes,
     Episode,
     AnimeNews,
+    AnimeForum,
 )
 from .utils.async_limiter import AsyncLimiter
 
@@ -232,3 +233,27 @@ class AioJikan:
         response = await self._get(endpoint, params)
 
         return AnimeSearch(**response)
+
+    async def get_anime_forum(self, anime_id: int, filter: str = None) -> AnimeForum:
+        """Get anime forum
+
+        Args:
+            anime_id (int): Anime ID
+            filter (str, optional): Filter to apply. ("all", "episode", "other"). Defaults to None.
+
+        Returns:
+            AnimeForum: AnimeForum object
+
+        Examples:
+            >>> aiojikan = AioJikan()
+            >>> forum = await aiojikan.get_anime_forum(1)
+        """
+
+        params = {}
+        if filter:
+            params["filter"] = filter
+
+        endpoint = f"anime/{anime_id}/forum"
+        response = await self._get(endpoint, params=params)
+
+        return AnimeForum(**response)
