@@ -14,15 +14,15 @@ from .utils.limiter import Limiter
 
 
 class Jikan:
-    """Jikan wrapper for the jikan.moe API"""
+    """Anime API wrapper with Tenrai as the default backend."""
 
     def __init__(
-        self, base_url: str = "https://api.jikan.moe/v4", rate_limit: int = 60
+        self, base_url: str = "https://api.tenrai.org/v1", rate_limit: int = 60
     ):
         """Construct a Jikan object
 
         Args:
-            base_url (str, optional): Base URL for Jikan API. Defaults to "https://api.jikan.moe/v4".
+            base_url (str, optional): Base URL for the anime API. Defaults to "https://api.tenrai.org/v1".
             rate_limit (int, optional): Rate limit in requests per minute. Defaults to 60.
 
         Returns:
@@ -30,7 +30,7 @@ class Jikan:
 
         Examples:
             >>> jikan = Jikan()
-            >>> jikan = Jikan("https://api.jikan.moe/v4")
+            >>> jikan = Jikan("https://api.tenrai.org/v1")
         """
 
         base_url = base_url.rstrip("/")
@@ -42,14 +42,14 @@ class Jikan:
             self._get = self.rate_limiter.__call__(self._get)
 
     def _get(self, endpoint: str, params: dict = None) -> dict:
-        """Make a GET request to the Jikan API
+        """Make a GET request to the configured anime API
 
         Args:
             endpoint (str): Endpoint to request
             params (dict, optional): Parameters to send with request. Defaults to None.
 
         Returns:
-            dict: JSON response from Jikan API
+            dict: JSON response from the configured anime API
         """
 
         url = f"{self.base_url}/{endpoint}"

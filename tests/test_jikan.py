@@ -13,6 +13,10 @@ def jikan():
     return Jikan()
 
 
+def test_default_base_url():
+    assert Jikan(rate_limit=0).base_url == "https://api.tenrai.org/v1"
+
+
 def test_get_anime(jikan: Jikan):
     resp = jikan.get_anime(1)
 
