@@ -1,21 +1,42 @@
 import pytest
+import pytest_asyncio
 import time
 
 from jikan4.aiojikan import AioJikan
 
 
-@pytest.fixture
-def aiojikan():
+@pytest_asyncio.fixture
+async def aiojikan():
     time.sleep(
         1
     )  # This is needed to prevent 429 Too Many Requests when resetting the rate limit
 
-    return AioJikan()
+    client = AioJikan()
+    yield client
+    await client.close()
 
 
 @pytest.mark.asyncio
 async def test_default_base_url():
     assert AioJikan(rate_limit=0).base_url == "https://api.tenrai.org/v1"
+
+
+@pytest.mark.asyncio
+async def test_session_lifecycle():
+    client = AioJikan(rate_limit=0)
+
+    assert client.session is None
+    await client.close()
+
+    await client.get_anime(1)
+    session = client.session
+
+    assert session is not None
+    assert not session.closed
+
+    await client.close()
+
+    assert session.closed
 
 
 @pytest.mark.asyncio

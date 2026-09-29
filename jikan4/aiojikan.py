@@ -37,6 +37,7 @@ class AioJikan:
 
         base_url = base_url.rstrip("/")
         self.base_url = base_url
+        self.session: aiohttp.ClientSession | None = None
 
         if rate_limit:
             self.rate_limiter = AsyncLimiter(calls_limit=rate_limit / 60, period=1)
@@ -45,7 +46,8 @@ class AioJikan:
     async def close(self) -> None:
         """Close the aiohttp session"""
 
-        await self.session.close()
+        if self.session is not None and not self.session.closed:
+            await self.session.close()
 
     async def __aenter__(self) -> AioJikan:
         return self
@@ -65,11 +67,12 @@ class AioJikan:
         """
 
         url = f"{self.base_url}/{endpoint}"
+        if self.session is None or self.session.closed:
+            self.session = aiohttp.ClientSession()
 
-        async with aiohttp.ClientSession() as session:
-            async with session.get(url, params=params) as response:
-                response.raise_for_status()
-                return await response.json()
+        async with self.session.get(url, params=params) as response:
+            response.raise_for_status()
+            return await response.json()
 
     async def get_anime(self, anime_id: int) -> Anime:
         """Get anime information
