@@ -14,6 +14,11 @@ def aiojikan():
 
 
 @pytest.mark.asyncio
+async def test_default_base_url():
+    assert AioJikan(rate_limit=0).base_url == "https://api.tenrai.org/v1"
+
+
+@pytest.mark.asyncio
 async def test_get_anime(aiojikan: AioJikan):
     resp = await aiojikan.get_anime(1)
 
