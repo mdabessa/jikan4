@@ -16,15 +16,15 @@ from .utils.async_limiter import AsyncLimiter
 
 
 class AioJikan:
-    """Async Jikan API Wrapper"""
+    """Async anime API wrapper with Tenrai as the default backend."""
 
     def __init__(
-        self, base_url: str = "https://api.jikan.moe/v4", rate_limit: int = 60
+        self, base_url: str = "https://api.tenrai.org/v1", rate_limit: int = 60
     ) -> None:
         """Construct a AioJikan object
 
         Args:
-            base_url (str, optional): Base URL for Jikan API. Defaults to "https://api.jikan.moe/v4".
+            base_url (str, optional): Base URL for the anime API. Defaults to "https://api.tenrai.org/v1".
             rate_limit (int, optional): Rate limit in requests per minute. Defaults to 60.
 
         Returns:
@@ -32,7 +32,7 @@ class AioJikan:
 
         Examples:
             >>> aiojikan = AioJikan()
-            >>> aiojikan = AioJikan("https://api.jikan.moe/v4")
+            >>> aiojikan = AioJikan("https://api.tenrai.org/v1")
         """
 
         base_url = base_url.rstrip("/")
@@ -54,14 +54,14 @@ class AioJikan:
         await self.close()
 
     async def _get(self, endpoint: str, params: dict = None) -> dict:
-        """Make a GET request to the Jikan API
+        """Make a GET request to the configured anime API
 
         Args:
             endpoint (str): Endpoint to request
             params (dict, optional): Parameters to send with request. Defaults to None.
 
         Returns:
-            dict: JSON response from Jikan API
+            dict: JSON response from the configured anime API
         """
 
         url = f"{self.base_url}/{endpoint}"

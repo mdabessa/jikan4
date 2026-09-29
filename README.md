@@ -1,5 +1,5 @@
 # jikan4
- A Python wrapper for the [Jikan API V4](https://docs.api.jikan.moe)
+ A Python wrapper for an anime API, with Tenrai as the default backend.
 
 
 ## Installation

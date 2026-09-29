@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "Jikan4"
 dynamic = ["version"]
-description = 'A non-official Python wrapper for the Jikan API'
+description = 'A Python wrapper for an anime API, with Tenrai as the default backend'
 readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"
