@@ -2,6 +2,23 @@
  A Python wrapper for an anime API, with Tenrai as the default backend.
 
 
+## Tenrai Endpoint Support
+
+The client currently uses these Tenrai v1 endpoints:
+
+| Client method | Endpoint | Status |
+| --- | --- | --- |
+| `get_anime` | `GET /anime/{id}` | Supported |
+| `get_anime_full` | `GET /anime/{id}/full` | Supported |
+| `get_anime_characters` | `GET /anime/{id}/characters` | Supported |
+| `get_anime_staff` | `GET /anime/{id}/staff` | Supported |
+| `get_anime_episodes` | `GET /anime/{id}/episodes` | Supported |
+| `get_anime_episode` | `GET /anime/{id}/episodes/{episode}` | Supported |
+| `get_anime_news` | `GET /anime/{id}/news` | Supported |
+| `search_anime` | `GET /anime` | Supported |
+| `get_anime_forum` | `GET /anime/{id}/forum` | Supported |
+
+
 ## Installation
 ```bash
 pip install jikan4
