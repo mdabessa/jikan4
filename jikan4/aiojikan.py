@@ -40,7 +40,7 @@ class AioJikan:
         self.session: aiohttp.ClientSession | None = None
 
         if rate_limit:
-            self.rate_limiter = AsyncLimiter(calls_limit=rate_limit / 60, period=1)
+            self.rate_limiter = AsyncLimiter(calls_limit=rate_limit, period=60, spread=True)
             self._get = self.rate_limiter.__call__(self._get)
 
     async def close(self) -> None:
