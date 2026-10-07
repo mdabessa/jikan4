@@ -104,6 +104,66 @@ async def test_search_anime(aiojikan: AioJikan):
 
 
 @pytest.mark.asyncio
+async def test_search_anime_filters(monkeypatch):
+    client = AioJikan(rate_limit=0)
+    captured = {}
+
+    async def fake_get(endpoint, params):
+        captured["endpoint"] = endpoint
+        captured["params"] = params
+        return {}
+
+    monkeypatch.setattr(client, "_get", fake_get)
+
+    await client.search_anime(
+        "tv",
+        "naruto",
+        page=2,
+        limit=10,
+        status="airing",
+        score=8.5,
+        min_score=7,
+        max_score=9,
+        rating="pg13",
+        genres="1,2",
+        genres_exclude="9",
+        order_by="score",
+        sort="desc",
+        letter="N",
+        producers="1",
+        start_date="2020-01-01",
+        end_date="2020-12-31",
+        sfw=False,
+        sfw_strict=True,
+    )
+
+    assert captured == {
+        "endpoint": "anime",
+        "params": {
+            "q": "naruto",
+            "page": 2,
+            "type": "tv",
+            "limit": 10,
+            "status": "airing",
+            "score": 8.5,
+            "min_score": 7,
+            "max_score": 9,
+            "rating": "pg13",
+            "genres": "1,2",
+            "genres_exclude": "9",
+            "order_by": "score",
+            "sort": "desc",
+            "letter": "N",
+            "producers": "1",
+            "start_date": "2020-01-01",
+            "end_date": "2020-12-31",
+            "sfw": False,
+            "sfw-strict": True,
+        },
+    }
+
+
+@pytest.mark.asyncio
 async def test_ratelimit(aiojikan: AioJikan):
     start = time.time()
     for _ in range(10):

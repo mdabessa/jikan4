@@ -74,6 +74,65 @@ def test_search_anime(jikan: Jikan):
     assert len(resp.data) > 0, "Response data is empty"
 
 
+def test_search_anime_filters(monkeypatch):
+    client = Jikan(rate_limit=0)
+    captured = {}
+
+    def fake_get(endpoint, params):
+        captured["endpoint"] = endpoint
+        captured["params"] = params
+        return {}
+
+    monkeypatch.setattr(client, "_get", fake_get)
+
+    client.search_anime(
+        "tv",
+        "naruto",
+        page=2,
+        limit=10,
+        status="airing",
+        score=8.5,
+        min_score=7,
+        max_score=9,
+        rating="pg13",
+        genres="1,2",
+        genres_exclude="9",
+        order_by="score",
+        sort="desc",
+        letter="N",
+        producers="1",
+        start_date="2020-01-01",
+        end_date="2020-12-31",
+        sfw=False,
+        sfw_strict=True,
+    )
+
+    assert captured == {
+        "endpoint": "anime",
+        "params": {
+            "q": "naruto",
+            "page": 2,
+            "type": "tv",
+            "limit": 10,
+            "status": "airing",
+            "score": 8.5,
+            "min_score": 7,
+            "max_score": 9,
+            "rating": "pg13",
+            "genres": "1,2",
+            "genres_exclude": "9",
+            "order_by": "score",
+            "sort": "desc",
+            "letter": "N",
+            "producers": "1",
+            "start_date": "2020-01-01",
+            "end_date": "2020-12-31",
+            "sfw": False,
+            "sfw-strict": True,
+        },
+    }
+
+
 def test_ratelimit(jikan: Jikan):
     start = time.time()
     for _ in range(10):

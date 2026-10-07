@@ -192,13 +192,50 @@ class Jikan:
 
         return AnimeNews(**response)
 
-    def search_anime(self, search_type: str, query: str, page: int = 1) -> AnimeSearch:
+    def search_anime(
+        self,
+        search_type: str,
+        query: str,
+        page: int = 1,
+        limit: int | None = None,
+        status: str | None = None,
+        score: float | None = None,
+        min_score: float | None = None,
+        max_score: float | None = None,
+        rating: str | None = None,
+        genres: str | None = None,
+        genres_exclude: str | None = None,
+        order_by: str | None = None,
+        sort: str | None = None,
+        letter: str | None = None,
+        producers: str | None = None,
+        start_date: str | None = None,
+        end_date: str | None = None,
+        sfw: bool | None = None,
+        sfw_strict: bool | None = None,
+    ) -> AnimeSearch:
         """Search for anime
 
         Args:
             search_type (str): Type of search to perform (tv, movie, ova, special, ona, music)
             query (str): Query to search for
             page (int, optional): Page number. Defaults to 1.
+            limit (int, optional): Maximum number of results.
+            status (str, optional): Airing status to filter by.
+            score (float, optional): Exact score to filter by.
+            min_score (float, optional): Minimum score to filter by.
+            max_score (float, optional): Maximum score to filter by.
+            rating (str, optional): Age rating to filter by.
+            genres (str, optional): Genre IDs to include.
+            genres_exclude (str, optional): Genre IDs to exclude.
+            order_by (str, optional): Field to order results by.
+            sort (str, optional): Sort direction.
+            letter (str, optional): First letter of the title.
+            producers (str, optional): Producer IDs to filter by.
+            start_date (str, optional): Earliest release date.
+            end_date (str, optional): Latest release date.
+            sfw (bool, optional): Restrict results to safe-for-work titles.
+            sfw_strict (bool, optional): Apply strict safe-for-work filtering.
 
         Returns:
             AnimeSearch: AnimeSearch object
@@ -209,7 +246,28 @@ class Jikan:
         """
 
         endpoint = f"anime"
-        params = {"q": query, "page": page, "type": search_type}
+        params = {
+            "q": query,
+            "page": page,
+            "type": search_type,
+            "limit": limit,
+            "status": status,
+            "score": score,
+            "min_score": min_score,
+            "max_score": max_score,
+            "rating": rating,
+            "genres": genres,
+            "genres_exclude": genres_exclude,
+            "order_by": order_by,
+            "sort": sort,
+            "letter": letter,
+            "producers": producers,
+            "start_date": start_date,
+            "end_date": end_date,
+            "sfw": sfw,
+            "sfw-strict": sfw_strict,
+        }
+        params = {key: value for key, value in params.items() if value is not None}
         response = self._get(endpoint, params)
 
         return AnimeSearch(**response)
