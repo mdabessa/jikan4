@@ -41,7 +41,7 @@ class Jikan:
             self.rate_limiter = Limiter(calls_limit=rate_limit, period=60, spread=True)
             self._get = self.rate_limiter.__call__(self._get)
 
-    def _get(self, endpoint: str, params: dict = None) -> dict:
+    def _get(self, endpoint: str, params: dict | None = None) -> dict:
         """Make a GET request to the configured anime API
 
         Args:
@@ -168,7 +168,7 @@ class Jikan:
         response = self._get(endpoint)
         return Episode(**response["data"])
 
-    def get_anime_news(self, anime_id: int, page: int = None) -> AnimeNews:
+    def get_anime_news(self, anime_id: int, page: int | None = None) -> AnimeNews:
         """Get anime news
 
         Args:
@@ -214,7 +214,7 @@ class Jikan:
 
         return AnimeSearch(**response)
 
-    def get_anime_forum(self, anime_id: int, filter: str = None) -> AnimeForum:
+    def get_anime_forum(self, anime_id: int, filter: str | None = None) -> AnimeForum:
         """Get anime forum
 
         Args:

@@ -55,7 +55,7 @@ class AioJikan:
     async def __aexit__(self, exc_type, exc, tb) -> None:
         await self.close()
 
-    async def _get(self, endpoint: str, params: dict = None) -> dict:
+    async def _get(self, endpoint: str, params: dict | None = None) -> dict:
         """Make a GET request to the configured anime API
 
         Args:
@@ -189,7 +189,7 @@ class AioJikan:
 
         return Episode(**response["data"])
 
-    async def get_anime_news(self, anime_id: int, page: int = None) -> AnimeNews:
+    async def get_anime_news(self, anime_id: int, page: int | None = None) -> AnimeNews:
         """Get anime news
 
         Args:
@@ -237,7 +237,7 @@ class AioJikan:
 
         return AnimeSearch(**response)
 
-    async def get_anime_forum(self, anime_id: int, filter: str = None) -> AnimeForum:
+    async def get_anime_forum(self, anime_id: int, filter: str | None = None) -> AnimeForum:
         """Get anime forum
 
         Args:
