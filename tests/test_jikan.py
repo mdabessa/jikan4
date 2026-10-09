@@ -70,6 +70,26 @@ def test_get_anime_episodes(jikan: Jikan):
     assert len(resp.data) > 0, "Response episodes is empty"
 
 
+def test_get_anime_episodes_page(monkeypatch):
+    client = Jikan(rate_limit=0)
+    captured = {}
+
+    def fake_get(endpoint, params):
+        captured["endpoint"] = endpoint
+        captured["params"] = params
+        return {}
+
+    monkeypatch.setattr(client, "_get", fake_get)
+    monkeypatch.setattr("jikan4.jikan.AnimeEpisodes", lambda **data: data)
+
+    client.get_anime_episodes(1, page=0)
+
+    assert captured == {
+        "endpoint": "anime/1/episodes",
+        "params": {"page": 0},
+    }
+
+
 def test_get_anime_episode(jikan: Jikan):
     resp = jikan.get_anime_episode(1, 1)
 

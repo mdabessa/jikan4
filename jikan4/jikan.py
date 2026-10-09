@@ -143,11 +143,14 @@ class Jikan:
         response = self._get(endpoint)
         return AnimeStaff(**response)
 
-    def get_anime_episodes(self, anime_id: int) -> AnimeEpisodes:
+    def get_anime_episodes(
+        self, anime_id: int, page: int | None = None
+    ) -> AnimeEpisodes:
         """Get anime episodes
 
         Args:
             anime_id (int): Anime ID
+            page (int, optional): Page number.
 
         Returns:
             AnimeEpisodes: AnimeEpisodes object
@@ -158,7 +161,9 @@ class Jikan:
         """
 
         endpoint = f"anime/{anime_id}/episodes"
-        response = self._get(endpoint)
+        params = {"page": page}
+        params = {key: value for key, value in params.items() if value is not None}
+        response = self._get(endpoint, params)
         return AnimeEpisodes(**response)
 
     def get_anime_episode(self, anime_id: int, episode: int) -> Episode:

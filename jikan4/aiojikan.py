@@ -162,11 +162,14 @@ class AioJikan:
 
         return AnimeStaff(**response)
 
-    async def get_anime_episodes(self, anime_id: int) -> AnimeEpisodes:
+    async def get_anime_episodes(
+        self, anime_id: int, page: int | None = None
+    ) -> AnimeEpisodes:
         """Get anime episodes
 
         Args:
             anime_id (int): Anime ID
+            page (int, optional): Page number.
 
         Returns:
             AnimeEpisodes: AnimeEpisodes object
@@ -177,7 +180,9 @@ class AioJikan:
         """
 
         endpoint = f"anime/{anime_id}/episodes"
-        response = await self._get(endpoint)
+        params = {"page": page}
+        params = {key: value for key, value in params.items() if value is not None}
+        response = await self._get(endpoint, params)
 
         return AnimeEpisodes(**response)
 

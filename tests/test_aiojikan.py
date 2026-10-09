@@ -99,6 +99,27 @@ async def test_get_anime_episodes(aiojikan: AioJikan):
 
 
 @pytest.mark.asyncio
+async def test_get_anime_episodes_page(monkeypatch):
+    client = AioJikan(rate_limit=0)
+    captured = {}
+
+    async def fake_get(endpoint, params):
+        captured["endpoint"] = endpoint
+        captured["params"] = params
+        return {}
+
+    monkeypatch.setattr(client, "_get", fake_get)
+    monkeypatch.setattr("jikan4.aiojikan.AnimeEpisodes", lambda **data: data)
+
+    await client.get_anime_episodes(1, page=0)
+
+    assert captured == {
+        "endpoint": "anime/1/episodes",
+        "params": {"page": 0},
+    }
+
+
+@pytest.mark.asyncio
 async def test_get_anime_episode(aiojikan: AioJikan):
     resp = await aiojikan.get_anime_episode(1, 1)
 
