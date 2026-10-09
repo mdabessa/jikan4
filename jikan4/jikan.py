@@ -77,11 +77,18 @@ class Jikan:
         response = self._get(endpoint)
         return Anime(**response["data"])
 
-    def get_anime_full(self, anime_id: int) -> Anime:
+    def get_anime_full(
+        self,
+        anime_id: int,
+        sfw: bool | None = None,
+        sfw_strict: bool | None = None,
+    ) -> Anime:
         """Get anime information with full details
 
         Args:
             anime_id (int): Anime ID
+            sfw (bool, optional): Restrict the response to safe-for-work content.
+            sfw_strict (bool, optional): Apply strict safe-for-work filtering.
 
         Returns:
             Anime: Anime object
@@ -92,7 +99,12 @@ class Jikan:
         """
 
         endpoint = f"anime/{anime_id}/full"
-        response = self._get(endpoint)
+        params = {
+            "sfw": sfw,
+            "sfw-strict": sfw_strict,
+        }
+        params = {key: value for key, value in params.items() if value is not None}
+        response = self._get(endpoint, params)
         return Anime(**response["data"])
 
     def get_anime_characters(self, anime_id: int) -> AnimeCharacters:

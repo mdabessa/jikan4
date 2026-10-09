@@ -55,6 +55,27 @@ async def test_get_anime_full(aiojikan: AioJikan):
 
 
 @pytest.mark.asyncio
+async def test_get_anime_full_filters(monkeypatch):
+    client = AioJikan(rate_limit=0)
+    captured = {}
+
+    async def fake_get(endpoint, params):
+        captured["endpoint"] = endpoint
+        captured["params"] = params
+        return {"data": {}}
+
+    monkeypatch.setattr(client, "_get", fake_get)
+    monkeypatch.setattr("jikan4.aiojikan.Anime", lambda **data: data)
+
+    await client.get_anime_full(1, sfw=False, sfw_strict=True)
+
+    assert captured == {
+        "endpoint": "anime/1/full",
+        "params": {"sfw": False, "sfw-strict": True},
+    }
+
+
+@pytest.mark.asyncio
 async def test_get_anime_characters(aiojikan: AioJikan):
     resp = await aiojikan.get_anime_characters(1)
 

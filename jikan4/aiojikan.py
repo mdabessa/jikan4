@@ -93,11 +93,18 @@ class AioJikan:
 
         return Anime(**response["data"])
 
-    async def get_anime_full(self, anime_id: int) -> Anime:
+    async def get_anime_full(
+        self,
+        anime_id: int,
+        sfw: bool | None = None,
+        sfw_strict: bool | None = None,
+    ) -> Anime:
         """Get anime information with full details
 
         Args:
             anime_id (int): Anime ID
+            sfw (bool, optional): Restrict the response to safe-for-work content.
+            sfw_strict (bool, optional): Apply strict safe-for-work filtering.
 
         Returns:
             Anime: Anime object
@@ -108,7 +115,12 @@ class AioJikan:
         """
 
         endpoint = f"anime/{anime_id}/full"
-        response = await self._get(endpoint)
+        params = {
+            "sfw": sfw,
+            "sfw-strict": sfw_strict,
+        }
+        params = {key: value for key, value in params.items() if value is not None}
+        response = await self._get(endpoint, params)
 
         return Anime(**response["data"])
 

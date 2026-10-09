@@ -30,6 +30,26 @@ def test_get_anime_full(jikan: Jikan):
     assert len(resp.streaming) > 0, "Response streaming list is empty"
 
 
+def test_get_anime_full_filters(monkeypatch):
+    client = Jikan(rate_limit=0)
+    captured = {}
+
+    def fake_get(endpoint, params):
+        captured["endpoint"] = endpoint
+        captured["params"] = params
+        return {"data": {}}
+
+    monkeypatch.setattr(client, "_get", fake_get)
+    monkeypatch.setattr("jikan4.jikan.Anime", lambda **data: data)
+
+    client.get_anime_full(1, sfw=False, sfw_strict=True)
+
+    assert captured == {
+        "endpoint": "anime/1/full",
+        "params": {"sfw": False, "sfw-strict": True},
+    }
+
+
 def test_get_anime_characters(jikan: Jikan):
     resp = jikan.get_anime_characters(1)
 
