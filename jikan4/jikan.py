@@ -185,12 +185,20 @@ class Jikan:
         response = self._get(endpoint)
         return Episode(**response["data"])
 
-    def get_anime_news(self, anime_id: int, page: int | None = None) -> AnimeNews:
+    def get_anime_news(
+        self,
+        anime_id: int,
+        page: int | None = None,
+        sfw: bool | None = None,
+        sfw_strict: bool | None = None,
+    ) -> AnimeNews:
         """Get anime news
 
         Args:
             anime_id (int): Anime ID
             page (int, optional): Page number. Defaults to None.
+            sfw (bool, optional): Restrict the response to safe-for-work content.
+            sfw_strict (bool, optional): Apply strict safe-for-work filtering.
 
         Returns:
             AnimeNews: AnimeNews object
@@ -200,9 +208,12 @@ class Jikan:
             >>> news = jikan.get_anime_news(1)
         """
 
-        params = {}
-        if page:
-            params["page"] = page
+        params = {
+            "page": page,
+            "sfw": sfw,
+            "sfw-strict": sfw_strict,
+        }
+        params = {key: value for key, value in params.items() if value is not None}
 
         endpoint = f"anime/{anime_id}/news"
         response = self._get(endpoint, params=params)

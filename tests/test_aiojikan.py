@@ -136,6 +136,27 @@ async def test_get_anime_news(aiojikan: AioJikan):
 
 
 @pytest.mark.asyncio
+async def test_get_anime_news_filters(monkeypatch):
+    client = AioJikan(rate_limit=0)
+    captured = {}
+
+    async def fake_get(endpoint, params):
+        captured["endpoint"] = endpoint
+        captured["params"] = params
+        return {}
+
+    monkeypatch.setattr(client, "_get", fake_get)
+    monkeypatch.setattr("jikan4.aiojikan.AnimeNews", lambda **data: data)
+
+    await client.get_anime_news(1, page=0, sfw=False, sfw_strict=True)
+
+    assert captured == {
+        "endpoint": "anime/1/news",
+        "params": {"page": 0, "sfw": False, "sfw-strict": True},
+    }
+
+
+@pytest.mark.asyncio
 async def test_search_anime(aiojikan: AioJikan):
     resp = await aiojikan.search_anime("tv", "naruto")
 

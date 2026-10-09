@@ -105,6 +105,26 @@ def test_get_anime_news(jikan: Jikan):
     assert len(resp.data) > 0, "Response data is empty"
 
 
+def test_get_anime_news_filters(monkeypatch):
+    client = Jikan(rate_limit=0)
+    captured = {}
+
+    def fake_get(endpoint, params):
+        captured["endpoint"] = endpoint
+        captured["params"] = params
+        return {}
+
+    monkeypatch.setattr(client, "_get", fake_get)
+    monkeypatch.setattr("jikan4.jikan.AnimeNews", lambda **data: data)
+
+    client.get_anime_news(1, page=0, sfw=False, sfw_strict=True)
+
+    assert captured == {
+        "endpoint": "anime/1/news",
+        "params": {"page": 0, "sfw": False, "sfw-strict": True},
+    }
+
+
 def test_search_anime(jikan: Jikan):
     resp = jikan.search_anime("tv", "naruto")
 
