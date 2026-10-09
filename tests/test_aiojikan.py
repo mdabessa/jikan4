@@ -245,3 +245,35 @@ async def test_get_anime_forum(aiojikan: AioJikan):
     assert len(resp.data) > 0, "Response data is empty"
     assert resp.data[0].url is not None, "Response url is empty"
     assert resp.data[0].last_comment.url is not None, "Response last_comment url is empty"
+
+
+@pytest.mark.asyncio
+async def test_get_anime_forum_filters(monkeypatch):
+    client = AioJikan(rate_limit=0)
+    captured = {}
+
+    async def fake_get(endpoint, params):
+        captured["endpoint"] = endpoint
+        captured["params"] = params
+        return {}
+
+    monkeypatch.setattr(client, "_get", fake_get)
+    monkeypatch.setattr("jikan4.aiojikan.AnimeForum", lambda **data: data)
+
+    await client.get_anime_forum(
+        1,
+        filter="episode",
+        page=0,
+        order_by="date",
+        sort="desc",
+    )
+
+    assert captured == {
+        "endpoint": "anime/1/forum",
+        "params": {
+            "filter": "episode",
+            "page": 0,
+            "order_by": "date",
+            "sort": "desc",
+        },
+    }

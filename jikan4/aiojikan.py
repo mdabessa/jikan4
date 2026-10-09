@@ -321,12 +321,22 @@ class AioJikan:
 
         return AnimeSearch(**response)
 
-    async def get_anime_forum(self, anime_id: int, filter: str | None = None) -> AnimeForum:
+    async def get_anime_forum(
+        self,
+        anime_id: int,
+        filter: str | None = None,
+        page: int | None = None,
+        order_by: str | None = None,
+        sort: str | None = None,
+    ) -> AnimeForum:
         """Get anime forum
 
         Args:
             anime_id (int): Anime ID
-            filter (str, optional): Filter to apply. ("all", "episode", "other"). Defaults to None.
+            filter (str, optional): Filter to apply. Tenrai currently supports only "episode". Defaults to None.
+            page (int, optional): Page number.
+            order_by (str, optional): Field to order results by.
+            sort (str, optional): Sort direction.
 
         Returns:
             AnimeForum: AnimeForum object
@@ -336,9 +346,13 @@ class AioJikan:
             >>> forum = await aiojikan.get_anime_forum(1)
         """
 
-        params = {}
-        if filter:
-            params["filter"] = filter
+        params = {
+            "filter": filter,
+            "page": page,
+            "order_by": order_by,
+            "sort": sort,
+        }
+        params = {key: value for key, value in params.items() if value is not None}
 
         endpoint = f"anime/{anime_id}/forum"
         response = await self._get(endpoint, params=params)

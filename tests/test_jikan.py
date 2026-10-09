@@ -210,3 +210,34 @@ def test_get_anime_forum(jikan: Jikan):
     assert len(resp.data) > 0, "Response data is empty"
     assert resp.data[0].url is not None, "Response url is empty"
     assert resp.data[0].last_comment.url is not None, "Response last_comment url is empty"
+
+
+def test_get_anime_forum_filters(monkeypatch):
+    client = Jikan(rate_limit=0)
+    captured = {}
+
+    def fake_get(endpoint, params):
+        captured["endpoint"] = endpoint
+        captured["params"] = params
+        return {}
+
+    monkeypatch.setattr(client, "_get", fake_get)
+    monkeypatch.setattr("jikan4.jikan.AnimeForum", lambda **data: data)
+
+    client.get_anime_forum(
+        1,
+        filter="episode",
+        page=0,
+        order_by="date",
+        sort="desc",
+    )
+
+    assert captured == {
+        "endpoint": "anime/1/forum",
+        "params": {
+            "filter": "episode",
+            "page": 0,
+            "order_by": "date",
+            "sort": "desc",
+        },
+    }
