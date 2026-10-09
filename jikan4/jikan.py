@@ -11,6 +11,7 @@ from .models import (
     AnimeForum,
 )
 from .utils.limiter import Limiter
+from .utils.params import exclude_none
 
 
 class Jikan:
@@ -103,7 +104,7 @@ class Jikan:
             "sfw": sfw,
             "sfw-strict": sfw_strict,
         }
-        params = {key: value for key, value in params.items() if value is not None}
+        params = exclude_none(params)
         response = self._get(endpoint, params)
         return Anime(**response["data"])
 
@@ -162,7 +163,7 @@ class Jikan:
 
         endpoint = f"anime/{anime_id}/episodes"
         params = {"page": page}
-        params = {key: value for key, value in params.items() if value is not None}
+        params = exclude_none(params)
         response = self._get(endpoint, params)
         return AnimeEpisodes(**response)
 
@@ -213,7 +214,7 @@ class Jikan:
             "sfw": sfw,
             "sfw-strict": sfw_strict,
         }
-        params = {key: value for key, value in params.items() if value is not None}
+        params = exclude_none(params)
 
         endpoint = f"anime/{anime_id}/news"
         response = self._get(endpoint, params=params)
@@ -295,7 +296,7 @@ class Jikan:
             "sfw": sfw,
             "sfw-strict": sfw_strict,
         }
-        params = {key: value for key, value in params.items() if value is not None}
+        params = exclude_none(params)
         response = self._get(endpoint, params)
 
         return AnimeSearch(**response)
@@ -331,7 +332,7 @@ class Jikan:
             "order_by": order_by,
             "sort": sort,
         }
-        params = {key: value for key, value in params.items() if value is not None}
+        params = exclude_none(params)
 
         endpoint = f"anime/{anime_id}/forum"
         response = self._get(endpoint, params=params)

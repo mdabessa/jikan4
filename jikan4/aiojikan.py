@@ -13,6 +13,7 @@ from .models import (
     AnimeForum,
 )
 from .utils.async_limiter import AsyncLimiter
+from .utils.params import exclude_none
 
 
 class AioJikan:
@@ -119,7 +120,7 @@ class AioJikan:
             "sfw": sfw,
             "sfw-strict": sfw_strict,
         }
-        params = {key: value for key, value in params.items() if value is not None}
+        params = exclude_none(params)
         response = await self._get(endpoint, params)
 
         return Anime(**response["data"])
@@ -181,7 +182,7 @@ class AioJikan:
 
         endpoint = f"anime/{anime_id}/episodes"
         params = {"page": page}
-        params = {key: value for key, value in params.items() if value is not None}
+        params = exclude_none(params)
         response = await self._get(endpoint, params)
 
         return AnimeEpisodes(**response)
@@ -234,7 +235,7 @@ class AioJikan:
             "sfw": sfw,
             "sfw-strict": sfw_strict,
         }
-        params = {key: value for key, value in params.items() if value is not None}
+        params = exclude_none(params)
 
         endpoint = f"anime/{anime_id}/news"
         response = await self._get(endpoint, params=params)
@@ -316,7 +317,7 @@ class AioJikan:
             "sfw": sfw,
             "sfw-strict": sfw_strict,
         }
-        params = {key: value for key, value in params.items() if value is not None}
+        params = exclude_none(params)
         response = await self._get(endpoint, params)
 
         return AnimeSearch(**response)
@@ -352,7 +353,7 @@ class AioJikan:
             "order_by": order_by,
             "sort": sort,
         }
-        params = {key: value for key, value in params.items() if value is not None}
+        params = exclude_none(params)
 
         endpoint = f"anime/{anime_id}/forum"
         response = await self._get(endpoint, params=params)

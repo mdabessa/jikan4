@@ -2,6 +2,7 @@ import pytest
 import time
 
 from jikan4.jikan import Jikan
+from jikan4.utils.params import exclude_none
 
 
 @pytest.fixture
@@ -15,6 +16,13 @@ def jikan():
 
 def test_default_base_url():
     assert Jikan(rate_limit=0).base_url == "https://api.tenrai.org/v1"
+
+
+def test_exclude_none_preserves_falsy_values():
+    assert exclude_none({"none": None, "false": False, "zero": 0}) == {
+        "false": False,
+        "zero": 0,
+    }
 
 
 def test_get_anime(jikan: Jikan):
