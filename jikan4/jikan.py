@@ -10,11 +10,12 @@ from .models import (
     AnimeNews,
     AnimeForum,
 )
+from .base import BaseClient
 from .utils.limiter import Limiter
 from .utils.params import exclude_none
 
 
-class Jikan:
+class Jikan(BaseClient):
     """Anime API wrapper with Tenrai as the default backend."""
 
     def __init__(
@@ -34,13 +35,12 @@ class Jikan:
             >>> jikan = Jikan("https://api.tenrai.org/v1")
         """
 
-        base_url = base_url.rstrip("/")
-        self.base_url = base_url
         self.session = requests.Session()
+        super().__init__(base_url, rate_limit)
 
-        if rate_limit:
-            self.rate_limiter = Limiter(calls_limit=rate_limit, period=60, spread=True)
-            self._get = self.rate_limiter.__call__(self._get)
+    def _setup_limiter(self, rate_limit: int) -> None:
+        self.rate_limiter = Limiter(calls_limit=rate_limit, period=60, spread=True)
+        self._get = self.rate_limiter.__call__(self._get)
 
     def _get(self, endpoint: str, params: dict | None = None) -> dict:
         """Make a GET request to the configured anime API

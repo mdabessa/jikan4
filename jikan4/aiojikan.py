@@ -12,11 +12,12 @@ from .models import (
     AnimeNews,
     AnimeForum,
 )
+from .base import BaseClient
 from .utils.async_limiter import AsyncLimiter
 from .utils.params import exclude_none
 
 
-class AioJikan:
+class AioJikan(BaseClient):
     """Async anime API wrapper with Tenrai as the default backend."""
 
     def __init__(
@@ -36,13 +37,12 @@ class AioJikan:
             >>> aiojikan = AioJikan("https://api.tenrai.org/v1")
         """
 
-        base_url = base_url.rstrip("/")
-        self.base_url = base_url
         self.session: aiohttp.ClientSession | None = None
+        super().__init__(base_url, rate_limit)
 
-        if rate_limit:
-            self.rate_limiter = AsyncLimiter(calls_limit=rate_limit, period=60, spread=True)
-            self._get = self.rate_limiter.__call__(self._get)
+    def _setup_limiter(self, rate_limit: int) -> None:
+        self.rate_limiter = AsyncLimiter(calls_limit=rate_limit, period=60, spread=True)
+        self._get = self.rate_limiter.__call__(self._get)
 
     async def close(self) -> None:
         """Close the aiohttp session"""

@@ -58,10 +58,10 @@ IDE-trackable signatures and documentation.
 - [x] Add a transport-agnostic spec module (e.g. `jikan4/routes.py`) of pure
     builder functions. Each builder accepts an endpoint's arguments and returns
     an `(endpoint, params)` tuple.
-- [ ] Move endpoint paths, Tenrai parameter names, defaults, the `sfw_strict` to
+- [x] Move endpoint paths, Tenrai parameter names, defaults, the `sfw_strict` to
     `sfw-strict` conversion, and `exclude_none` usage into the builders.
     Preserve valid falsy values such as `False` and `0`.
-- [ ] Add a shared base client (e.g. `jikan4/base.py`) holding `base_url`
+- [x] Add a shared base client (e.g. `jikan4/base.py`) holding `base_url`
     normalization/storage and `rate_limit` handling, with a transport-specific
     limiter setup hook.
 - [ ] Refactor `Jikan` and `AioJikan` to inherit from the base client, keeping
