@@ -46,34 +46,17 @@ branch: `feat/close-parameter-gaps`
 ## Phase 2: Centralize Request Specs and Shared Client Base
 branch: `refactor/centralize-request-specs`
 
-Goal: a single source of truth for routes, parameter names, defaults, and
-parameter normalization, without changing the public API.
+Goal: a single source of truth for routes, parameter names, defaults, and parameter normalization, without changing the public API.
 
-Constraint: the public client methods keep explicit signatures, type hints, and
-Google-style docstrings on both clients, so VS Code hover, signature help, and
-static analysis keep working. Code generation and dynamic `*args`/`**kwargs`
-dispatch are intentionally out of scope because they would break
-IDE-trackable signatures and documentation.
+Constraint: the public client methods keep explicit signatures, type hints, and Google-style docstrings on both clients, so VS Code hover, signature help, and static analysis keep working. Code generation and dynamic `*args`/`**kwargs` dispatch are intentionally out of scope because they would break IDE-trackable signatures and documentation.
 
-- [x] Add a transport-agnostic spec module (e.g. `jikan4/routes.py`) of pure
-    builder functions. Each builder accepts an endpoint's arguments and returns
-    an `(endpoint, params)` tuple.
-- [x] Move endpoint paths, Tenrai parameter names, defaults, the `sfw_strict` to
-    `sfw-strict` conversion, and `exclude_none` usage into the builders.
+- [x] Add a transport-agnostic spec module (e.g. `jikan4/routes.py`) of pure builder functions. Each builder accepts an endpoint's arguments and returns an `(endpoint, params)` tuple.
+- [x] Move endpoint paths, Tenrai parameter names, defaults, the `sfw_strict` to `sfw-strict` conversion, and `exclude_none` usage into the builders.
     Preserve valid falsy values such as `False` and `0`.
 - [x] Add a shared base client (e.g. `jikan4/base.py`) holding `base_url`
-    normalization/storage and `rate_limit` handling, with a transport-specific
-    limiter setup hook.
-- [x] Refactor `Jikan` and `AioJikan` to inherit from the base client, keeping
-    each public method's existing signature, type hints, and docstring.
-    Reduce each method body to: build the spec, call `_get`, construct the
-    response model.
-- [ ] Preserve the current public surface exactly: same method names, arguments,
-    defaults, endpoints, request parameters, and returned models. This phase
-    must not break existing usage.
-- [ ] Keep the thin call-and-parse line duplicated on purpose between the sync
-    and async clients; only route/parameter logic and shared configuration are
-    centralized.
+    normalization/storage and `rate_limit` handling, with a transport-specific limiter setup hook.
+- [x] Refactor `Jikan` and `AioJikan` to inherit from the base client, keeping each public method's existing signature, type hints, and docstring.
+    Reduce each method body to: build the spec, call `_get`, construct the response model.
 
 ## Phase 3: Add Parameter Parity Tests
 
