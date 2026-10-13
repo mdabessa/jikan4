@@ -13,8 +13,8 @@ from .models import (
     AnimeForum,
 )
 from .base import BaseClient
+from . import routes
 from .utils.async_limiter import AsyncLimiter
-from .utils.params import exclude_none
 
 
 class AioJikan(BaseClient):
@@ -89,8 +89,8 @@ class AioJikan(BaseClient):
             >>> anime = await aiojikan.get_anime(1)
         """
 
-        endpoint = f"anime/{anime_id}"
-        response = await self._get(endpoint)
+        endpoint, params = routes.get_anime(anime_id)
+        response = await self._get(endpoint, params)
 
         return Anime(**response["data"])
 
@@ -115,12 +115,7 @@ class AioJikan(BaseClient):
             >>> anime = await aiojikan.get_anime_full(1)
         """
 
-        endpoint = f"anime/{anime_id}/full"
-        params = {
-            "sfw": sfw,
-            "sfw-strict": sfw_strict,
-        }
-        params = exclude_none(params)
+        endpoint, params = routes.get_anime_full(anime_id, sfw, sfw_strict)
         response = await self._get(endpoint, params)
 
         return Anime(**response["data"])
@@ -139,8 +134,8 @@ class AioJikan(BaseClient):
             >>> characters = await aiojikan.get_anime_characters(1)
         """
 
-        endpoint = f"anime/{anime_id}/characters"
-        response = await self._get(endpoint)
+        endpoint, params = routes.get_anime_characters(anime_id)
+        response = await self._get(endpoint, params)
 
         return AnimeCharacters(**response)
 
@@ -158,8 +153,8 @@ class AioJikan(BaseClient):
             >>> staff = await aiojikan.get_anime_staff(1)
         """
 
-        endpoint = f"anime/{anime_id}/staff"
-        response = await self._get(endpoint)
+        endpoint, params = routes.get_anime_staff(anime_id)
+        response = await self._get(endpoint, params)
 
         return AnimeStaff(**response)
 
@@ -180,9 +175,7 @@ class AioJikan(BaseClient):
             >>> episodes = await aiojikan.get_anime_episodes(1)
         """
 
-        endpoint = f"anime/{anime_id}/episodes"
-        params = {"page": page}
-        params = exclude_none(params)
+        endpoint, params = routes.get_anime_episodes(anime_id, page)
         response = await self._get(endpoint, params)
 
         return AnimeEpisodes(**response)
@@ -202,8 +195,8 @@ class AioJikan(BaseClient):
             >>> episode = await aiojikan.get_anime_episode(1, 1)
         """
 
-        endpoint = f"anime/{anime_id}/episodes/{episode}"
-        response = await self._get(endpoint)
+        endpoint, params = routes.get_anime_episode(anime_id, episode)
+        response = await self._get(endpoint, params)
 
         return Episode(**response["data"])
 
@@ -230,15 +223,8 @@ class AioJikan(BaseClient):
             >>> news = await aiojikan.get_anime_news(1)
         """
 
-        params = {
-            "page": page,
-            "sfw": sfw,
-            "sfw-strict": sfw_strict,
-        }
-        params = exclude_none(params)
-
-        endpoint = f"anime/{anime_id}/news"
-        response = await self._get(endpoint, params=params)
+        endpoint, params = routes.get_anime_news(anime_id, page, sfw, sfw_strict)
+        response = await self._get(endpoint, params)
 
         return AnimeNews(**response)
 
@@ -295,29 +281,27 @@ class AioJikan(BaseClient):
             >>> result = await aiojikan.search_anime("tv", "naruto")
         """
 
-        endpoint = f"anime"
-        params = {
-            "q": query,
-            "page": page,
-            "type": search_type,
-            "limit": limit,
-            "status": status,
-            "score": score,
-            "min_score": min_score,
-            "max_score": max_score,
-            "rating": rating,
-            "genres": genres,
-            "genres_exclude": genres_exclude,
-            "order_by": order_by,
-            "sort": sort,
-            "letter": letter,
-            "producers": producers,
-            "start_date": start_date,
-            "end_date": end_date,
-            "sfw": sfw,
-            "sfw-strict": sfw_strict,
-        }
-        params = exclude_none(params)
+        endpoint, params = routes.search_anime(
+            search_type,
+            query,
+            page,
+            limit,
+            status,
+            score,
+            min_score,
+            max_score,
+            rating,
+            genres,
+            genres_exclude,
+            order_by,
+            sort,
+            letter,
+            producers,
+            start_date,
+            end_date,
+            sfw,
+            sfw_strict,
+        )
         response = await self._get(endpoint, params)
 
         return AnimeSearch(**response)
@@ -347,15 +331,9 @@ class AioJikan(BaseClient):
             >>> forum = await aiojikan.get_anime_forum(1)
         """
 
-        params = {
-            "filter": filter,
-            "page": page,
-            "order_by": order_by,
-            "sort": sort,
-        }
-        params = exclude_none(params)
-
-        endpoint = f"anime/{anime_id}/forum"
-        response = await self._get(endpoint, params=params)
+        endpoint, params = routes.get_anime_forum(
+            anime_id, filter, page, order_by, sort
+        )
+        response = await self._get(endpoint, params)
 
         return AnimeForum(**response)

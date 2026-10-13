@@ -11,8 +11,8 @@ from .models import (
     AnimeForum,
 )
 from .base import BaseClient
+from . import routes
 from .utils.limiter import Limiter
-from .utils.params import exclude_none
 
 
 class Jikan(BaseClient):
@@ -74,8 +74,8 @@ class Jikan(BaseClient):
             >>> anime = jikan.get_anime(1)
         """
 
-        endpoint = f"anime/{anime_id}"
-        response = self._get(endpoint)
+        endpoint, params = routes.get_anime(anime_id)
+        response = self._get(endpoint, params)
         return Anime(**response["data"])
 
     def get_anime_full(
@@ -99,12 +99,7 @@ class Jikan(BaseClient):
             >>> anime = jikan.get_anime_full(1)
         """
 
-        endpoint = f"anime/{anime_id}/full"
-        params = {
-            "sfw": sfw,
-            "sfw-strict": sfw_strict,
-        }
-        params = exclude_none(params)
+        endpoint, params = routes.get_anime_full(anime_id, sfw, sfw_strict)
         response = self._get(endpoint, params)
         return Anime(**response["data"])
 
@@ -122,8 +117,8 @@ class Jikan(BaseClient):
             >>> characters = jikan.get_anime_characters(1)
         """
 
-        endpoint = f"anime/{anime_id}/characters"
-        response = self._get(endpoint)
+        endpoint, params = routes.get_anime_characters(anime_id)
+        response = self._get(endpoint, params)
         return AnimeCharacters(**response)
 
     def get_anime_staff(self, anime_id: int) -> AnimeStaff:
@@ -140,8 +135,8 @@ class Jikan(BaseClient):
             >>> staff = jikan.get_anime_staff(1)
         """
 
-        endpoint = f"anime/{anime_id}/staff"
-        response = self._get(endpoint)
+        endpoint, params = routes.get_anime_staff(anime_id)
+        response = self._get(endpoint, params)
         return AnimeStaff(**response)
 
     def get_anime_episodes(
@@ -161,9 +156,7 @@ class Jikan(BaseClient):
             >>> episodes = jikan.get_anime_episodes(1)
         """
 
-        endpoint = f"anime/{anime_id}/episodes"
-        params = {"page": page}
-        params = exclude_none(params)
+        endpoint, params = routes.get_anime_episodes(anime_id, page)
         response = self._get(endpoint, params)
         return AnimeEpisodes(**response)
 
@@ -182,8 +175,8 @@ class Jikan(BaseClient):
             >>> episode = jikan.get_anime_episode(1, 1)
         """
 
-        endpoint = f"anime/{anime_id}/episodes/{episode}"
-        response = self._get(endpoint)
+        endpoint, params = routes.get_anime_episode(anime_id, episode)
+        response = self._get(endpoint, params)
         return Episode(**response["data"])
 
     def get_anime_news(
@@ -209,15 +202,8 @@ class Jikan(BaseClient):
             >>> news = jikan.get_anime_news(1)
         """
 
-        params = {
-            "page": page,
-            "sfw": sfw,
-            "sfw-strict": sfw_strict,
-        }
-        params = exclude_none(params)
-
-        endpoint = f"anime/{anime_id}/news"
-        response = self._get(endpoint, params=params)
+        endpoint, params = routes.get_anime_news(anime_id, page, sfw, sfw_strict)
+        response = self._get(endpoint, params)
 
         return AnimeNews(**response)
 
@@ -274,29 +260,27 @@ class Jikan(BaseClient):
             >>> result = jikan.search_anime("tv", "naruto")
         """
 
-        endpoint = f"anime"
-        params = {
-            "q": query,
-            "page": page,
-            "type": search_type,
-            "limit": limit,
-            "status": status,
-            "score": score,
-            "min_score": min_score,
-            "max_score": max_score,
-            "rating": rating,
-            "genres": genres,
-            "genres_exclude": genres_exclude,
-            "order_by": order_by,
-            "sort": sort,
-            "letter": letter,
-            "producers": producers,
-            "start_date": start_date,
-            "end_date": end_date,
-            "sfw": sfw,
-            "sfw-strict": sfw_strict,
-        }
-        params = exclude_none(params)
+        endpoint, params = routes.search_anime(
+            search_type,
+            query,
+            page,
+            limit,
+            status,
+            score,
+            min_score,
+            max_score,
+            rating,
+            genres,
+            genres_exclude,
+            order_by,
+            sort,
+            letter,
+            producers,
+            start_date,
+            end_date,
+            sfw,
+            sfw_strict,
+        )
         response = self._get(endpoint, params)
 
         return AnimeSearch(**response)
@@ -326,15 +310,9 @@ class Jikan(BaseClient):
             >>> forum = jikan.get_anime_forum(1)
         """
 
-        params = {
-            "filter": filter,
-            "page": page,
-            "order_by": order_by,
-            "sort": sort,
-        }
-        params = exclude_none(params)
-
-        endpoint = f"anime/{anime_id}/forum"
-        response = self._get(endpoint, params=params)
+        endpoint, params = routes.get_anime_forum(
+            anime_id, filter, page, order_by, sort
+        )
+        response = self._get(endpoint, params)
 
         return AnimeForum(**response)

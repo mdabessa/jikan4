@@ -64,7 +64,7 @@ IDE-trackable signatures and documentation.
 - [x] Add a shared base client (e.g. `jikan4/base.py`) holding `base_url`
     normalization/storage and `rate_limit` handling, with a transport-specific
     limiter setup hook.
-- [ ] Refactor `Jikan` and `AioJikan` to inherit from the base client, keeping
+- [x] Refactor `Jikan` and `AioJikan` to inherit from the base client, keeping
     each public method's existing signature, type hints, and docstring.
     Reduce each method body to: build the spec, call `_get`, construct the
     response model.
