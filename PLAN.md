@@ -55,7 +55,7 @@ static analysis keep working. Code generation and dynamic `*args`/`**kwargs`
 dispatch are intentionally out of scope because they would break
 IDE-trackable signatures and documentation.
 
-- [ ] Add a transport-agnostic spec module (e.g. `jikan4/routes.py`) of pure
+- [x] Add a transport-agnostic spec module (e.g. `jikan4/routes.py`) of pure
     builder functions. Each builder accepts an endpoint's arguments and returns
     an `(endpoint, params)` tuple.
 - [ ] Move endpoint paths, Tenrai parameter names, defaults, the `sfw_strict` to
