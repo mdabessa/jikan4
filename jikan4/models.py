@@ -289,3 +289,138 @@ class Forum(BaseModel):
 
 class AnimeForum(BaseModel):
     data: List[Forum] = []
+
+
+class Recommendation(BaseModel):
+    entry: Anime | None = None
+    url: str | None = None
+    votes: int = 0
+
+
+class AnimeRecommendations(BaseModel):
+    data: List[Recommendation] = []
+
+
+class Article(BaseModel):
+    mal_id: int | None = None
+    url: str | None = None
+    title: str | None = None
+    date: str | None = None
+    author_username: str | None = None
+    author_url: str | None = None
+    forum_url: str | None = None
+    images: Image = Image()
+    comments: int = 0
+    excerpt: str | None = None
+
+
+class AnimeArticles(BaseModel):
+    data: List[Article] = []
+    pagination: Pagination = Pagination()
+
+
+class Video(BaseModel):
+    title: str | None = None
+    trailer: Trailer = Trailer()
+    views: int = 0
+    likes: int = 0
+    dislikes: int = 0
+    comment_count: int = 0
+    published_at: str | None = None
+    duration: str | None = None
+    privacy_status: str | None = None
+    region_restriction: object | None = None
+    embeddable: bool | None = None
+
+
+class AnimeVideos(BaseModel):
+    data: dict[str, List[object]] = {}
+
+
+class AnimeEpisodeVideos(BaseModel):
+    data: List[object] = []
+    pagination: Pagination = Pagination()
+
+
+class AnimePictures(BaseModel):
+    data: List[Image] = []
+
+
+class AnimeStatistics(BaseModel):
+    data: dict[str, object] = {}
+
+
+class AnimeMoreInfo(BaseModel):
+    data: object | None = None
+
+
+class AnimeRelations(BaseModel):
+    data: List[Related] = []
+
+
+class AnimeThemes(BaseModel):
+    data: Theme = Theme()
+
+
+class AnimeExternal(BaseModel):
+    data: List[External] = []
+
+
+class AnimeStreaming(BaseModel):
+    data: List[Streaming] = []
+
+
+class Review(BaseModel):
+    mal_id: int | None = None
+    url: str | None = None
+    type: str | None = None
+    reactions: dict[str, int] = {}
+    date: str | None = None
+    review: str | None = None
+    score: int | None = None
+    tags: List[str] = []
+    is_spoiler: bool = False
+    is_preliminary: bool = False
+    episodes_watched: int | None = None
+    user: Person | None = None
+
+
+class AnimeReviews(BaseModel):
+    data: List[Review] = []
+    pagination: Pagination = Pagination()
+
+
+class Stack(BaseModel):
+    mal_id: int | None = None
+    url: str | None = None
+    stack_type: str | None = None
+    title: str | None = None
+    description: str | None = None
+    author_username: str | None = None
+    author_url: str | None = None
+    is_official: bool = False
+    is_challenge: bool = False
+    is_spoiler: bool = False
+    restack_count: int = 0
+    entry_count: int = 0
+    created_at: str | None = None
+
+
+class AnimeStacks(BaseModel):
+    data: List[Stack] = []
+    pagination: Pagination = Pagination()
+
+
+class AnimeCatalog(BaseModel):
+    data: List[Anime] = []
+    pagination: Pagination = Pagination()
+
+
+class AnimeId(BaseModel):
+    mal_id: int | None = None
+    title: str | None = None
+
+
+class AnimeIds(BaseModel):
+    data: List[AnimeId] = []
+    pagination: Pagination = Pagination()

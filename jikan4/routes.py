@@ -110,3 +110,161 @@ def get_anime_forum(
         "sort": sort,
     }
     return f"anime/{anime_id}/forum", exclude_none(params)
+
+
+def get_anime_recommendations(
+    anime_id: int, sfw: bool | None = None, sfw_strict: bool | None = None
+) -> tuple[str, dict[str, Any]]:
+    return f"anime/{anime_id}/recommendations", exclude_none(
+        {"sfw": sfw, "sfw-strict": sfw_strict}
+    )
+
+
+def get_anime_articles(
+    anime_id: int,
+    page: int | None = None,
+    order_by: str | None = None,
+    sort: str | None = None,
+) -> tuple[str, dict[str, Any]]:
+    return f"anime/{anime_id}/articles", exclude_none(
+        {"page": page, "order_by": order_by, "sort": sort}
+    )
+
+
+def get_anime_videos(anime_id: int) -> tuple[str, dict[str, Any]]:
+    return f"anime/{anime_id}/videos", {}
+
+
+def get_anime_episode_videos(
+    anime_id: int, page: int | None = None
+) -> tuple[str, dict[str, Any]]:
+    return f"anime/{anime_id}/videos/episodes", exclude_none({"page": page})
+
+
+def get_anime_pictures(anime_id: int) -> tuple[str, dict[str, Any]]:
+    return f"anime/{anime_id}/pictures", {}
+
+
+def get_anime_statistics(anime_id: int) -> tuple[str, dict[str, Any]]:
+    return f"anime/{anime_id}/statistics", {}
+
+
+def get_anime_moreinfo(anime_id: int) -> tuple[str, dict[str, Any]]:
+    return f"anime/{anime_id}/moreinfo", {}
+
+
+def get_anime_relations(
+    anime_id: int, sfw: bool | None = None, sfw_strict: bool | None = None
+) -> tuple[str, dict[str, Any]]:
+    return f"anime/{anime_id}/relations", exclude_none(
+        {"sfw": sfw, "sfw-strict": sfw_strict}
+    )
+
+
+def get_anime_themes(anime_id: int) -> tuple[str, dict[str, Any]]:
+    return f"anime/{anime_id}/themes", {}
+
+
+def get_anime_external(anime_id: int) -> tuple[str, dict[str, Any]]:
+    return f"anime/{anime_id}/external", {}
+
+
+def get_anime_streaming(anime_id: int) -> tuple[str, dict[str, Any]]:
+    return f"anime/{anime_id}/streaming", {}
+
+
+def get_anime_reviews(
+    anime_id: int,
+    page: int | None = None,
+    sort: str | None = None,
+    preliminary: bool | None = None,
+    spoilers: bool | None = None,
+    sentiment: str | None = None,
+) -> tuple[str, dict[str, Any]]:
+    params = {
+        "page": page,
+        "sort": sort,
+        "preliminary": preliminary,
+        "spoilers": spoilers,
+        "sentiment": sentiment,
+    }
+    return f"anime/{anime_id}/reviews", exclude_none(params)
+
+
+def get_anime_stacks(
+    anime_id: int,
+    q: str | None = None,
+    page: int | None = None,
+    limit: int | None = None,
+    order_by: str | None = None,
+    sort: str | None = None,
+    spoilers: bool | None = None,
+    challenges: bool | None = None,
+    official: bool | None = None,
+    sfw: bool | None = None,
+    sfw_strict: bool | None = None,
+) -> tuple[str, dict[str, Any]]:
+    params = {
+        "q": q,
+        "page": page,
+        "limit": limit,
+        "order_by": order_by,
+        "sort": sort,
+        "spoilers": spoilers,
+        "challenges": challenges,
+        "official": official,
+        "sfw": sfw,
+        "sfw-strict": sfw_strict,
+    }
+    return f"anime/{anime_id}/stacks", exclude_none(params)
+
+
+def _get_anime_catalog(
+    resource: str,
+    q: str | None = None,
+    page: int | None = None,
+    limit: int | None = None,
+    order_by: str | None = None,
+    sort: str | None = None,
+) -> tuple[str, dict[str, Any]]:
+    params = {
+        "q": q,
+        "page": page,
+        "limit": limit,
+        "order_by": order_by,
+        "sort": sort,
+    }
+    return f"anime/{resource}", exclude_none(params)
+
+
+def get_anime_deleted(**kwargs: Any) -> tuple[str, dict[str, Any]]:
+    return _get_anime_catalog("deleted", **kwargs)
+
+
+def get_anime_unapproved(**kwargs: Any) -> tuple[str, dict[str, Any]]:
+    return _get_anime_catalog("unapproved", **kwargs)
+
+
+def get_anime_denied(**kwargs: Any) -> tuple[str, dict[str, Any]]:
+    return _get_anime_catalog("denied", **kwargs)
+
+
+def get_anime_ids(
+    type: str | None = None,
+    status: str | None = None,
+    rating: str | None = None,
+    sfw: bool | None = None,
+    sfw_strict: bool | None = None,
+    include: str | None = None,
+    updated_at: str | None = None,
+) -> tuple[str, dict[str, Any]]:
+    params = {
+        "type": type,
+        "status": status,
+        "rating": rating,
+        "sfw": sfw,
+        "sfw-strict": sfw_strict,
+        "include": include,
+        "updated_at": updated_at,
+    }
+    return "anime/ids", exclude_none(params)

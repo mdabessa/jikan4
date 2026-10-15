@@ -75,8 +75,8 @@ branch: `feat/parameter-parity-tests`
 ## Phase 4: Add Anime Endpoint Coverage
 branch: `feat/anime-endpoint-coverage`
 
-- [ ] Create a new branch for this phase.
-- [ ] Implement the remaining anime routes:
+- [x] Create a new branch for this phase.
+- [x] Implement the remaining anime routes:
     Recommendations
     Articles
     Videos
@@ -94,9 +94,9 @@ branch: `feat/anime-endpoint-coverage`
     Unapproved anime
     Denied anime
     Anime IDs
-- [ ] Add corresponding Pydantic models as required by each response.
-- [ ] Update README.md
-- [ ] Add tests for the new functionality
+- [x] Add corresponding Pydantic models as required by each response.
+- [x] Update README.md
+- [x] Add tests for the new functionality
 - [ ] Merge the branch into `main` and tag it with the next semantic version number, and publish to PyPI.
 
 ## Phase 5: Add Manga Support

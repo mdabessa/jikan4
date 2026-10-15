@@ -11,6 +11,21 @@ from .models import (
     Episode,
     AnimeNews,
     AnimeForum,
+    AnimeRecommendations,
+    AnimeArticles,
+    AnimeVideos,
+    AnimeEpisodeVideos,
+    AnimePictures,
+    AnimeStatistics,
+    AnimeMoreInfo,
+    AnimeRelations,
+    AnimeThemes,
+    AnimeExternal,
+    AnimeStreaming,
+    AnimeReviews,
+    AnimeStacks,
+    AnimeCatalog,
+    AnimeIds,
 )
 from .base import BaseClient
 from . import routes
@@ -337,3 +352,167 @@ class AioJikan(BaseClient):
         response = await self._get(endpoint, params)
 
         return AnimeForum(**response)
+
+    async def get_anime_recommendations(
+        self, anime_id: int, sfw: bool | None = None, sfw_strict: bool | None = None
+    ) -> AnimeRecommendations:
+        """Get anime recommendations."""
+        endpoint, params = routes.get_anime_recommendations(anime_id, sfw, sfw_strict)
+        return AnimeRecommendations(**await self._get(endpoint, params))
+
+    async def get_anime_articles(
+        self,
+        anime_id: int,
+        page: int | None = None,
+        order_by: str | None = None,
+        sort: str | None = None,
+    ) -> AnimeArticles:
+        """Get articles related to an anime."""
+        endpoint, params = routes.get_anime_articles(anime_id, page, order_by, sort)
+        return AnimeArticles(**await self._get(endpoint, params))
+
+    async def get_anime_videos(self, anime_id: int) -> AnimeVideos:
+        """Get anime promotional and music videos."""
+        endpoint, params = routes.get_anime_videos(anime_id)
+        return AnimeVideos(**await self._get(endpoint, params))
+
+    async def get_anime_episode_videos(
+        self, anime_id: int, page: int | None = None
+    ) -> AnimeEpisodeVideos:
+        """Get videos associated with anime episodes."""
+        endpoint, params = routes.get_anime_episode_videos(anime_id, page)
+        return AnimeEpisodeVideos(**await self._get(endpoint, params))
+
+    async def get_anime_pictures(self, anime_id: int) -> AnimePictures:
+        """Get anime pictures."""
+        endpoint, params = routes.get_anime_pictures(anime_id)
+        return AnimePictures(**await self._get(endpoint, params))
+
+    async def get_anime_statistics(self, anime_id: int) -> AnimeStatistics:
+        """Get anime watching statistics."""
+        endpoint, params = routes.get_anime_statistics(anime_id)
+        return AnimeStatistics(**await self._get(endpoint, params))
+
+    async def get_anime_moreinfo(self, anime_id: int) -> AnimeMoreInfo:
+        """Get additional anime information."""
+        endpoint, params = routes.get_anime_moreinfo(anime_id)
+        return AnimeMoreInfo(**await self._get(endpoint, params))
+
+    async def get_anime_relations(
+        self, anime_id: int, sfw: bool | None = None, sfw_strict: bool | None = None
+    ) -> AnimeRelations:
+        """Get anime relations."""
+        endpoint, params = routes.get_anime_relations(anime_id, sfw, sfw_strict)
+        return AnimeRelations(**await self._get(endpoint, params))
+
+    async def get_anime_themes(self, anime_id: int) -> AnimeThemes:
+        """Get anime opening and ending themes."""
+        endpoint, params = routes.get_anime_themes(anime_id)
+        return AnimeThemes(**await self._get(endpoint, params))
+
+    async def get_anime_external(self, anime_id: int) -> AnimeExternal:
+        """Get external links for an anime."""
+        endpoint, params = routes.get_anime_external(anime_id)
+        return AnimeExternal(**await self._get(endpoint, params))
+
+    async def get_anime_streaming(self, anime_id: int) -> AnimeStreaming:
+        """Get streaming links for an anime."""
+        endpoint, params = routes.get_anime_streaming(anime_id)
+        return AnimeStreaming(**await self._get(endpoint, params))
+
+    async def get_anime_reviews(
+        self,
+        anime_id: int,
+        page: int | None = None,
+        sort: str | None = None,
+        preliminary: bool | None = None,
+        spoilers: bool | None = None,
+        sentiment: str | None = None,
+    ) -> AnimeReviews:
+        """Get anime reviews."""
+        endpoint, params = routes.get_anime_reviews(
+            anime_id, page, sort, preliminary, spoilers, sentiment
+        )
+        return AnimeReviews(**await self._get(endpoint, params))
+
+    async def get_anime_stacks(
+        self,
+        anime_id: int,
+        q: str | None = None,
+        page: int | None = None,
+        limit: int | None = None,
+        order_by: str | None = None,
+        sort: str | None = None,
+        spoilers: bool | None = None,
+        challenges: bool | None = None,
+        official: bool | None = None,
+        sfw: bool | None = None,
+        sfw_strict: bool | None = None,
+    ) -> AnimeStacks:
+        """Get user-created stacks containing an anime."""
+        endpoint, params = routes.get_anime_stacks(
+            anime_id,
+            q,
+            page,
+            limit,
+            order_by,
+            sort,
+            spoilers,
+            challenges,
+            official,
+            sfw,
+            sfw_strict,
+        )
+        return AnimeStacks(**await self._get(endpoint, params))
+
+    async def get_anime_deleted(
+        self,
+        q: str | None = None,
+        page: int | None = None,
+        limit: int | None = None,
+        order_by: str | None = None,
+        sort: str | None = None,
+    ) -> AnimeCatalog:
+        """Get deleted anime entries."""
+        endpoint, params = routes.get_anime_deleted(q=q, page=page, limit=limit, order_by=order_by, sort=sort)
+        return AnimeCatalog(**await self._get(endpoint, params))
+
+    async def get_anime_unapproved(
+        self,
+        q: str | None = None,
+        page: int | None = None,
+        limit: int | None = None,
+        order_by: str | None = None,
+        sort: str | None = None,
+    ) -> AnimeCatalog:
+        """Get unapproved anime entries."""
+        endpoint, params = routes.get_anime_unapproved(q=q, page=page, limit=limit, order_by=order_by, sort=sort)
+        return AnimeCatalog(**await self._get(endpoint, params))
+
+    async def get_anime_denied(
+        self,
+        q: str | None = None,
+        page: int | None = None,
+        limit: int | None = None,
+        order_by: str | None = None,
+        sort: str | None = None,
+    ) -> AnimeCatalog:
+        """Get denied anime entries."""
+        endpoint, params = routes.get_anime_denied(q=q, page=page, limit=limit, order_by=order_by, sort=sort)
+        return AnimeCatalog(**await self._get(endpoint, params))
+
+    async def get_anime_ids(
+        self,
+        type: str | None = None,
+        status: str | None = None,
+        rating: str | None = None,
+        sfw: bool | None = None,
+        sfw_strict: bool | None = None,
+        include: str | None = None,
+        updated_at: str | None = None,
+    ) -> AnimeIds:
+        """Get anime IDs updated since a specified timestamp."""
+        endpoint, params = routes.get_anime_ids(
+            type, status, rating, sfw, sfw_strict, include, updated_at
+        )
+        return AnimeIds(**await self._get(endpoint, params))
