@@ -60,16 +60,16 @@ Constraint: the public client methods keep explicit signatures, type hints, and 
 
 ## Phase 3: Add Parameter Parity Tests
 
-- [ ] Drive both clients from one parametrized test suite built on the shared
+- [x] Drive both clients from one parametrized test suite built on the shared
     spec table, so sync/async parity is enforced in a single place.
-- [ ] Add mocked request tests for both clients that verify:
+- [x] Add mocked request tests for both clients that verify:
     The correct endpoint is used.
     Optional parameters are forwarded.
     `sfw_strict` is converted to `sfw-strict`.
     `None` values are omitted.
     `False` values are preserved.
     Existing positional calls still work.
-- [ ] Complete this phase before adding new endpoint wrappers.
+- [x] Complete this phase before adding new endpoint wrappers.
 
 ## Phase 4: Add Anime Endpoint Coverage
 
