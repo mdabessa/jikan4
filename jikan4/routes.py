@@ -268,3 +268,207 @@ def get_anime_ids(
         "updated_at": updated_at,
     }
     return "anime/ids", exclude_none(params)
+
+
+def search_manga(
+    query: str | None = None,
+    page: int = 1,
+    limit: int | None = None,
+    manga_type: str | None = None,
+    status: str | None = None,
+    sfw: bool | None = None,
+    sfw_strict: bool | None = None,
+    score: float | None = None,
+    min_score: float | None = None,
+    max_score: float | None = None,
+    unapproved: bool | None = None,
+    genres: str | None = None,
+    genres_exclude: str | None = None,
+    order_by: str | None = None,
+    sort: str | None = None,
+    letter: str | None = None,
+    magazines: str | None = None,
+    start_date: str | None = None,
+    end_date: str | None = None,
+) -> tuple[str, dict[str, Any]]:
+    params = {
+        "q": query,
+        "page": page,
+        "limit": limit,
+        "type": manga_type,
+        "status": status,
+        "sfw": sfw,
+        "sfw-strict": sfw_strict,
+        "score": score,
+        "min_score": min_score,
+        "max_score": max_score,
+        "unapproved": unapproved,
+        "genres": genres,
+        "genres_exclude": genres_exclude,
+        "order_by": order_by,
+        "sort": sort,
+        "letter": letter,
+        "magazines": magazines,
+        "start_date": start_date,
+        "end_date": end_date,
+    }
+    return "manga", exclude_none(params)
+
+
+def get_manga(manga_id: int) -> tuple[str, dict[str, Any]]:
+    return f"manga/{manga_id}", {}
+
+
+def get_manga_full(
+    manga_id: int,
+    sfw: bool | None = None,
+    sfw_strict: bool | None = None,
+) -> tuple[str, dict[str, Any]]:
+    return f"manga/{manga_id}/full", exclude_none(
+        {"sfw": sfw, "sfw-strict": sfw_strict}
+    )
+
+
+def get_manga_characters(manga_id: int) -> tuple[str, dict[str, Any]]:
+    return f"manga/{manga_id}/characters", {}
+
+
+def get_manga_news(
+    manga_id: int,
+    page: int | None = None,
+    sfw: bool | None = None,
+    sfw_strict: bool | None = None,
+) -> tuple[str, dict[str, Any]]:
+    return f"manga/{manga_id}/news", exclude_none(
+        {"page": page, "sfw": sfw, "sfw-strict": sfw_strict}
+    )
+
+
+def get_manga_articles(
+    manga_id: int,
+    page: int | None = None,
+    order_by: str | None = None,
+    sort: str | None = None,
+) -> tuple[str, dict[str, Any]]:
+    return f"manga/{manga_id}/articles", exclude_none(
+        {"page": page, "order_by": order_by, "sort": sort}
+    )
+
+
+def get_manga_pictures(manga_id: int) -> tuple[str, dict[str, Any]]:
+    return f"manga/{manga_id}/pictures", {}
+
+
+def get_manga_statistics(manga_id: int) -> tuple[str, dict[str, Any]]:
+    return f"manga/{manga_id}/statistics", {}
+
+
+def get_manga_moreinfo(manga_id: int) -> tuple[str, dict[str, Any]]:
+    return f"manga/{manga_id}/moreinfo", {}
+
+
+def get_manga_relations(
+    manga_id: int, sfw: bool | None = None, sfw_strict: bool | None = None
+) -> tuple[str, dict[str, Any]]:
+    return f"manga/{manga_id}/relations", exclude_none(
+        {"sfw": sfw, "sfw-strict": sfw_strict}
+    )
+
+
+def get_manga_external(manga_id: int) -> tuple[str, dict[str, Any]]:
+    return f"manga/{manga_id}/external", {}
+
+
+def get_manga_reviews(
+    manga_id: int,
+    page: int | None = None,
+    sort: str | None = None,
+    preliminary: bool | None = None,
+    spoilers: bool | None = None,
+    sentiment: str | None = None,
+) -> tuple[str, dict[str, Any]]:
+    params = {
+        "page": page,
+        "sort": sort,
+        "preliminary": preliminary,
+        "spoilers": spoilers,
+        "sentiment": sentiment,
+    }
+    return f"manga/{manga_id}/reviews", exclude_none(params)
+
+
+def get_manga_stacks(
+    manga_id: int,
+    q: str | None = None,
+    page: int | None = None,
+    limit: int | None = None,
+    order_by: str | None = None,
+    sort: str | None = None,
+    spoilers: bool | None = None,
+    challenges: bool | None = None,
+    official: bool | None = None,
+    sfw: bool | None = None,
+    sfw_strict: bool | None = None,
+) -> tuple[str, dict[str, Any]]:
+    params = {
+        "q": q,
+        "page": page,
+        "limit": limit,
+        "order_by": order_by,
+        "sort": sort,
+        "spoilers": spoilers,
+        "challenges": challenges,
+        "official": official,
+        "sfw": sfw,
+        "sfw-strict": sfw_strict,
+    }
+    return f"manga/{manga_id}/stacks", exclude_none(params)
+
+
+def _get_manga_catalog(
+    resource: str,
+    q: str | None = None,
+    page: int | None = None,
+    limit: int | None = None,
+    order_by: str | None = None,
+    sort: str | None = None,
+) -> tuple[str, dict[str, Any]]:
+    params = {
+        "q": q,
+        "page": page,
+        "limit": limit,
+        "order_by": order_by,
+        "sort": sort,
+    }
+    return f"manga/{resource}", exclude_none(params)
+
+
+def get_manga_deleted(**kwargs: Any) -> tuple[str, dict[str, Any]]:
+    return _get_manga_catalog("deleted", **kwargs)
+
+
+def get_manga_unapproved(**kwargs: Any) -> tuple[str, dict[str, Any]]:
+    return _get_manga_catalog("unapproved", **kwargs)
+
+
+def get_manga_denied(**kwargs: Any) -> tuple[str, dict[str, Any]]:
+    return _get_manga_catalog("denied", **kwargs)
+
+
+def get_manga_ids(
+    type: str | None = None,
+    status: str | None = None,
+    sfw: bool | None = None,
+    sfw_strict: bool | None = None,
+    include: str | None = None,
+    updated_at: str | None = None,
+) -> tuple[str, dict[str, Any]]:
+    params = {
+        "type": type,
+        "status": status,
+        "sfw": sfw,
+        "sfw-strict": sfw_strict,
+        "include": include,
+        "updated_at": updated_at,
+    }
+    return "manga/ids", exclude_none(params)

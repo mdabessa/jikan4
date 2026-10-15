@@ -424,3 +424,121 @@ class AnimeId(BaseModel):
 class AnimeIds(BaseModel):
     data: List[AnimeId] = []
     pagination: Pagination = Pagination()
+
+
+class Author(BaseModel):
+    mal_id: int | None = None
+    type: str | None = None
+    name: str | None = None
+    url: str | None = None
+
+
+class Serialization(BaseModel):
+    mal_id: int | None = None
+    type: str | None = None
+    name: str | None = None
+    url: str | None = None
+
+
+class Manga(BaseModel):
+    mal_id: int
+    url: str
+    images: Image = Image()
+    approved: bool | None = None
+    titles: List[Title] = []
+    title: str | None = None
+    title_english: str | None = None
+    title_japanese: str | None = None
+    title_synonyms: List[str] = []
+    type: str | None = None
+    chapters: int | None = None
+    volumes: int | None = None
+    status: str | None = None
+    publishing: bool | None = None
+    published: AirDate = AirDate()
+    score: float | None = None
+    scored_by: int | None = None
+    rank: int | None = None
+    popularity: int | None = None
+    members: int | None = None
+    favorites: int | None = None
+    synopsis: str | None = None
+    background: str | None = None
+    authors: List[Author] = []
+    serializations: List[Serialization] = []
+    genres: List[Genre] = []
+    explicit_genres: List[ExplicitGenre] = []
+    themes: List[ThemeGenre] = []
+    demographics: List[Demographic] = []
+    relations: List[Related] = []
+    external: List[External] = []
+
+
+class MangaSearch(BaseModel):
+    data: List[Manga] = []
+    pagination: Pagination = Pagination()
+
+
+class MangaCharacters(AnimeCharacters):
+    pass
+
+
+class MangaNews(AnimeNews):
+    pass
+
+
+class MangaArticles(AnimeArticles):
+    pass
+
+
+class MangaPictures(AnimePictures):
+    pass
+
+
+class MangaStatistics(AnimeStatistics):
+    pass
+
+
+class MangaMoreInfo(AnimeMoreInfo):
+    pass
+
+
+class MangaRelations(AnimeRelations):
+    pass
+
+
+class MangaExternal(AnimeExternal):
+    pass
+
+
+class MangaReviews(AnimeReviews):
+    pass
+
+
+class MangaStacks(AnimeStacks):
+    pass
+
+
+class MangaRecommendation(BaseModel):
+    entry: Manga | None = None
+    url: str | None = None
+    votes: int = 0
+
+
+class MangaRecommendations(BaseModel):
+    data: List[MangaRecommendation] = []
+
+
+class MangaCatalog(BaseModel):
+    data: List[Manga] = []
+    pagination: Pagination = Pagination()
+
+
+class MangaId(BaseModel):
+    mal_id: int | None = None
+    title: str | None = None
+
+
+class MangaIds(BaseModel):
+    data: List[MangaId] = []
+    pagination: Pagination = Pagination()
