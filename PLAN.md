@@ -97,7 +97,7 @@ branch: `feat/anime-endpoint-coverage`
 - [x] Add corresponding Pydantic models as required by each response.
 - [x] Update README.md
 - [x] Add tests for the new functionality
-- [ ] Merge the branch into `main` and tag it with the next semantic version number, and publish to PyPI.
+- [x] Merge the branch into `main` and tag it with the next semantic version number, and publish to PyPI.
 
 ## Phase 5: Add Manga Support
 branch: `feat/manga-support`
