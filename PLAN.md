@@ -97,13 +97,13 @@ branch: `feat/anime-endpoint-coverage`
 - [x] Add corresponding Pydantic models as required by each response.
 - [x] Update README.md
 - [x] Add tests for the new functionality
-- [x] Merge the branch into `main` and tag it with the next semantic version number, and publish to PyPI.
+- [x] Merge the branch into `main` and tag it with the next semantic version number.
 
 ## Phase 5: Add Manga Support
 branch: `feat/manga-support`
 
-- [ ] Create a new branch for this phase.
-- [ ] Add manga models and client methods for:
+- [x] Create a new branch for this phase.
+- [x] Add manga models and client methods for:
     Search
     Details
     Full details
@@ -120,9 +120,9 @@ branch: `feat/manga-support`
     Stacks
     Deleted manga
     Manga IDs
-- [ ] Update README.md
-- [ ] Add tests for the new functionality
-- [ ] Merge the branch into `main` and tag it with the next semantic version number, and publish to PyPI.
+- [x] Update README.md
+- [x] Add tests for the new functionality
+- [ ] Merge the branch into `main` and tag it with the next semantic version number.
 
 ## Phase 6: Add Catalog Resources
 branch: `feat/catalog-resources`
@@ -137,7 +137,7 @@ branch: `feat/catalog-resources`
 - [ ] Share reusable pagination, image, person, and entry models where schemas are compatible.
 - [ ] Update README.md
 - [ ] Add tests for the new functionality
-- [ ] Merge the branch into `main` and tag it with the next semantic version number, and publish to PyPI.
+- [ ] Merge the branch into `main` and tag it with the next semantic version number.
 
 ## Phase 7: Add Discovery Endpoints
 branch: `feat/discovery-endpoints`
@@ -152,7 +152,7 @@ branch: `feat/discovery-endpoints`
     Schedules
 - [ ] Update README.md
 - [ ] Add tests for the new functionality
-- [ ] Merge the branch into `main` and tag it with the next semantic version number, and publish to PyPI.
+- [ ] Merge the branch into `main` and tag it with the next semantic version number.
 
 ## Phase 8: Add Articles, News, and Stacks
 branch: `feat/articles-news-stacks`
@@ -169,7 +169,7 @@ branch: `feat/articles-news-stacks`
     News details
 - [ ] Update README.md
 - [ ] Add tests for the new functionality
-- [ ] Merge the branch into `main` and tag it with the next semantic version number, and publish to PyPI.
+- [ ] Merge the branch into `main` and tag it with the next semantic version number.
 
 ## Phase 9: Update Documentation and Public API
 
