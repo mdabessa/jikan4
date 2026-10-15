@@ -34,6 +34,24 @@ The client currently uses these Tenrai v1 endpoints:
 | `get_anime_unapproved` | `GET /anime/unapproved` | Supported |
 | `get_anime_denied` | `GET /anime/denied` | Supported |
 | `get_anime_ids` | `GET /anime/ids` | Supported |
+| `search_manga` | `GET /manga` | Supported |
+| `get_manga` | `GET /manga/{id}` | Supported |
+| `get_manga_full` | `GET /manga/{id}/full` | Supported |
+| `get_manga_recommendations` | `GET /manga/{id}/recommendations` | Supported |
+| `get_manga_characters` | `GET /manga/{id}/characters` | Supported |
+| `get_manga_news` | `GET /manga/{id}/news` | Supported |
+| `get_manga_articles` | `GET /manga/{id}/articles` | Supported |
+| `get_manga_pictures` | `GET /manga/{id}/pictures` | Supported |
+| `get_manga_statistics` | `GET /manga/{id}/statistics` | Supported |
+| `get_manga_moreinfo` | `GET /manga/{id}/moreinfo` | Supported |
+| `get_manga_relations` | `GET /manga/{id}/relations` | Supported |
+| `get_manga_external` | `GET /manga/{id}/external` | Supported |
+| `get_manga_reviews` | `GET /manga/{id}/reviews` | Supported |
+| `get_manga_stacks` | `GET /manga/{id}/stacks` | Supported |
+| `get_manga_deleted` | `GET /manga/deleted` | Supported |
+| `get_manga_unapproved` | `GET /manga/unapproved` | Supported |
+| `get_manga_denied` | `GET /manga/denied` | Supported |
+| `get_manga_ids` | `GET /manga/ids` | Supported |
 
 
 ## Installation
