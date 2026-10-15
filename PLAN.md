@@ -59,6 +59,7 @@ Constraint: the public client methods keep explicit signatures, type hints, and 
     Reduce each method body to: build the spec, call `_get`, construct the response model.
 
 ## Phase 3: Add Parameter Parity Tests
+branch: `feat/parameter-parity-tests`
 
 - [x] Drive both clients from one parametrized test suite built on the shared
     spec table, so sync/async parity is enforced in a single place.
