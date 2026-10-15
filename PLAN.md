@@ -73,7 +73,9 @@ branch: `feat/parameter-parity-tests`
 - [x] Complete this phase before adding new endpoint wrappers.
 
 ## Phase 4: Add Anime Endpoint Coverage
+branch: `feat/anime-endpoint-coverage`
 
+- [ ] Create a new branch for this phase.
 - [ ] Implement the remaining anime routes:
     Recommendations
     Articles
@@ -93,9 +95,14 @@ branch: `feat/parameter-parity-tests`
     Denied anime
     Anime IDs
 - [ ] Add corresponding Pydantic models as required by each response.
+- [ ] Update README.md
+- [ ] Add tests for the new functionality
+- [ ] Merge the branch into `main` and tag it with the next semantic version number, and publish to PyPI.
 
 ## Phase 5: Add Manga Support
+branch: `feat/manga-support`
 
+- [ ] Create a new branch for this phase.
 - [ ] Add manga models and client methods for:
     Search
     Details
@@ -113,9 +120,14 @@ branch: `feat/parameter-parity-tests`
     Stacks
     Deleted manga
     Manga IDs
+- [ ] Update README.md
+- [ ] Add tests for the new functionality
+- [ ] Merge the branch into `main` and tag it with the next semantic version number, and publish to PyPI.
 
 ## Phase 6: Add Catalog Resources
+branch: `feat/catalog-resources`
 
+- [ ] Create a new branch for this phase.
 - [ ] Implement catalog resources:
     Characters
     People
@@ -123,9 +135,14 @@ branch: `feat/parameter-parity-tests`
     Genres
     Magazines
 - [ ] Share reusable pagination, image, person, and entry models where schemas are compatible.
+- [ ] Update README.md
+- [ ] Add tests for the new functionality
+- [ ] Merge the branch into `main` and tag it with the next semantic version number, and publish to PyPI.
 
 ## Phase 7: Add Discovery Endpoints
+branch: `feat/discovery-endpoints`
 
+- [ ] Create a new branch for this phase.
 - [ ] Implement discovery endpoints:
     Random anime, manga, characters, and people
     Anime and manga recommendations
@@ -133,9 +150,14 @@ branch: `feat/parameter-parity-tests`
     Seasons
     Reviews
     Schedules
+- [ ] Update README.md
+- [ ] Add tests for the new functionality
+- [ ] Merge the branch into `main` and tag it with the next semantic version number, and publish to PyPI.
 
 ## Phase 8: Add Articles, News, and Stacks
+branch: `feat/articles-news-stacks`
 
+- [ ] Create a new branch for this phase.
 - [ ] Implement content endpoints:
     Global stacks
     Stack details
@@ -145,11 +167,11 @@ branch: `feat/parameter-parity-tests`
     News
     News tags
     News details
+- [ ] Update README.md
+- [ ] Add tests for the new functionality
+- [ ] Merge the branch into `main` and tag it with the next semantic version number, and publish to PyPI.
 
 ## Phase 9: Update Documentation and Public API
 
-- [ ] Update project documentation and public API:
-    `README.md`
-    `__init__.py`
-    Public API tests
-    Sync and async usage examples
+- [ ] Consolidate and update README.md
+- [ ] Add docstrings that are missing or incomplete
