@@ -24,6 +24,21 @@ from .models import (
     AnimeStacks,
     AnimeCatalog,
     AnimeIds,
+    Manga,
+    MangaSearch,
+    MangaCharacters,
+    MangaNews,
+    MangaArticles,
+    MangaPictures,
+    MangaStatistics,
+    MangaMoreInfo,
+    MangaRelations,
+    MangaExternal,
+    MangaReviews,
+    MangaStacks,
+    MangaRecommendations,
+    MangaCatalog,
+    MangaIds,
 )
 from .base import BaseClient
 from . import routes
@@ -495,3 +510,223 @@ class Jikan(BaseClient):
             type, status, rating, sfw, sfw_strict, include, updated_at
         )
         return AnimeIds(**self._get(endpoint, params))
+
+    def search_manga(
+        self,
+        query: str | None = None,
+        page: int = 1,
+        limit: int | None = None,
+        manga_type: str | None = None,
+        status: str | None = None,
+        sfw: bool | None = None,
+        sfw_strict: bool | None = None,
+        score: float | None = None,
+        min_score: float | None = None,
+        max_score: float | None = None,
+        unapproved: bool | None = None,
+        genres: str | None = None,
+        genres_exclude: str | None = None,
+        order_by: str | None = None,
+        sort: str | None = None,
+        letter: str | None = None,
+        magazines: str | None = None,
+        start_date: str | None = None,
+        end_date: str | None = None,
+    ) -> MangaSearch:
+        """Search for manga."""
+        endpoint, params = routes.search_manga(
+            query,
+            page,
+            limit,
+            manga_type,
+            status,
+            sfw,
+            sfw_strict,
+            score,
+            min_score,
+            max_score,
+            unapproved,
+            genres,
+            genres_exclude,
+            order_by,
+            sort,
+            letter,
+            magazines,
+            start_date,
+            end_date,
+        )
+        return MangaSearch(**self._get(endpoint, params))
+
+    def get_manga(self, manga_id: int) -> Manga:
+        """Get manga information."""
+        endpoint, params = routes.get_manga(manga_id)
+        response = self._get(endpoint, params)
+        return Manga(**response["data"])
+
+    def get_manga_full(
+        self,
+        manga_id: int,
+        sfw: bool | None = None,
+        sfw_strict: bool | None = None,
+    ) -> Manga:
+        """Get manga information with full details."""
+        endpoint, params = routes.get_manga_full(manga_id, sfw, sfw_strict)
+        response = self._get(endpoint, params)
+        return Manga(**response["data"])
+
+    def get_manga_recommendations(
+        self, manga_id: int, sfw: bool | None = None, sfw_strict: bool | None = None
+    ) -> MangaRecommendations:
+        """Get manga recommendations."""
+        endpoint, params = routes.get_manga_recommendations(manga_id, sfw, sfw_strict)
+        return MangaRecommendations(**self._get(endpoint, params))
+
+    def get_manga_characters(self, manga_id: int) -> MangaCharacters:
+        """Get manga characters."""
+        endpoint, params = routes.get_manga_characters(manga_id)
+        return MangaCharacters(**self._get(endpoint, params))
+
+    def get_manga_news(
+        self,
+        manga_id: int,
+        page: int | None = None,
+        sfw: bool | None = None,
+        sfw_strict: bool | None = None,
+    ) -> MangaNews:
+        """Get manga news."""
+        endpoint, params = routes.get_manga_news(manga_id, page, sfw, sfw_strict)
+        return MangaNews(**self._get(endpoint, params))
+
+    def get_manga_articles(
+        self,
+        manga_id: int,
+        page: int | None = None,
+        order_by: str | None = None,
+        sort: str | None = None,
+    ) -> MangaArticles:
+        """Get articles related to manga."""
+        endpoint, params = routes.get_manga_articles(manga_id, page, order_by, sort)
+        return MangaArticles(**self._get(endpoint, params))
+
+    def get_manga_pictures(self, manga_id: int) -> MangaPictures:
+        """Get manga pictures."""
+        endpoint, params = routes.get_manga_pictures(manga_id)
+        return MangaPictures(**self._get(endpoint, params))
+
+    def get_manga_statistics(self, manga_id: int) -> MangaStatistics:
+        """Get manga statistics."""
+        endpoint, params = routes.get_manga_statistics(manga_id)
+        return MangaStatistics(**self._get(endpoint, params))
+
+    def get_manga_moreinfo(self, manga_id: int) -> MangaMoreInfo:
+        """Get additional manga information."""
+        endpoint, params = routes.get_manga_moreinfo(manga_id)
+        return MangaMoreInfo(**self._get(endpoint, params))
+
+    def get_manga_relations(
+        self, manga_id: int, sfw: bool | None = None, sfw_strict: bool | None = None
+    ) -> MangaRelations:
+        """Get manga relations."""
+        endpoint, params = routes.get_manga_relations(manga_id, sfw, sfw_strict)
+        return MangaRelations(**self._get(endpoint, params))
+
+    def get_manga_external(self, manga_id: int) -> MangaExternal:
+        """Get external links for manga."""
+        endpoint, params = routes.get_manga_external(manga_id)
+        return MangaExternal(**self._get(endpoint, params))
+
+    def get_manga_reviews(
+        self,
+        manga_id: int,
+        page: int | None = None,
+        sort: str | None = None,
+        preliminary: bool | None = None,
+        spoilers: bool | None = None,
+        sentiment: str | None = None,
+    ) -> MangaReviews:
+        """Get manga reviews."""
+        endpoint, params = routes.get_manga_reviews(
+            manga_id, page, sort, preliminary, spoilers, sentiment
+        )
+        return MangaReviews(**self._get(endpoint, params))
+
+    def get_manga_stacks(
+        self,
+        manga_id: int,
+        q: str | None = None,
+        page: int | None = None,
+        limit: int | None = None,
+        order_by: str | None = None,
+        sort: str | None = None,
+        spoilers: bool | None = None,
+        challenges: bool | None = None,
+        official: bool | None = None,
+        sfw: bool | None = None,
+        sfw_strict: bool | None = None,
+    ) -> MangaStacks:
+        """Get user-created stacks containing manga."""
+        endpoint, params = routes.get_manga_stacks(
+            manga_id,
+            q,
+            page,
+            limit,
+            order_by,
+            sort,
+            spoilers,
+            challenges,
+            official,
+            sfw,
+            sfw_strict,
+        )
+        return MangaStacks(**self._get(endpoint, params))
+
+    def get_manga_deleted(
+        self,
+        q: str | None = None,
+        page: int | None = None,
+        limit: int | None = None,
+        order_by: str | None = None,
+        sort: str | None = None,
+    ) -> MangaCatalog:
+        """Get deleted manga entries."""
+        endpoint, params = routes.get_manga_deleted(q=q, page=page, limit=limit, order_by=order_by, sort=sort)
+        return MangaCatalog(**self._get(endpoint, params))
+
+    def get_manga_unapproved(
+        self,
+        q: str | None = None,
+        page: int | None = None,
+        limit: int | None = None,
+        order_by: str | None = None,
+        sort: str | None = None,
+    ) -> MangaCatalog:
+        """Get unapproved manga entries."""
+        endpoint, params = routes.get_manga_unapproved(q=q, page=page, limit=limit, order_by=order_by, sort=sort)
+        return MangaCatalog(**self._get(endpoint, params))
+
+    def get_manga_denied(
+        self,
+        q: str | None = None,
+        page: int | None = None,
+        limit: int | None = None,
+        order_by: str | None = None,
+        sort: str | None = None,
+    ) -> MangaCatalog:
+        """Get denied manga entries."""
+        endpoint, params = routes.get_manga_denied(q=q, page=page, limit=limit, order_by=order_by, sort=sort)
+        return MangaCatalog(**self._get(endpoint, params))
+
+    def get_manga_ids(
+        self,
+        type: str | None = None,
+        status: str | None = None,
+        sfw: bool | None = None,
+        sfw_strict: bool | None = None,
+        include: str | None = None,
+        updated_at: str | None = None,
+    ) -> MangaIds:
+        """Get manga IDs updated since a specified timestamp."""
+        endpoint, params = routes.get_manga_ids(
+            type, status, sfw, sfw_strict, include, updated_at
+        )
+        return MangaIds(**self._get(endpoint, params))
