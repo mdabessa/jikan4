@@ -329,6 +329,14 @@ def get_manga_full(
     )
 
 
+def get_manga_recommendations(
+    manga_id: int, sfw: bool | None = None, sfw_strict: bool | None = None
+) -> tuple[str, dict[str, Any]]:
+    return f"manga/{manga_id}/recommendations", exclude_none(
+        {"sfw": sfw, "sfw-strict": sfw_strict}
+    )
+
+
 def get_manga_characters(manga_id: int) -> tuple[str, dict[str, Any]]:
     return f"manga/{manga_id}/characters", {}
 
