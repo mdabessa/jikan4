@@ -17,6 +17,23 @@ The client currently uses these Tenrai v1 endpoints:
 | `get_anime_news` | `GET /anime/{id}/news` | Supported |
 | `search_anime` | `GET /anime` | Supported |
 | `get_anime_forum` | `GET /anime/{id}/forum` | Supported |
+| `get_anime_recommendations` | `GET /anime/{id}/recommendations` | Supported |
+| `get_anime_articles` | `GET /anime/{id}/articles` | Supported |
+| `get_anime_videos` | `GET /anime/{id}/videos` | Supported |
+| `get_anime_episode_videos` | `GET /anime/{id}/videos/episodes` | Supported |
+| `get_anime_pictures` | `GET /anime/{id}/pictures` | Supported |
+| `get_anime_statistics` | `GET /anime/{id}/statistics` | Supported |
+| `get_anime_moreinfo` | `GET /anime/{id}/moreinfo` | Supported |
+| `get_anime_relations` | `GET /anime/{id}/relations` | Supported |
+| `get_anime_themes` | `GET /anime/{id}/themes` | Supported |
+| `get_anime_external` | `GET /anime/{id}/external` | Supported |
+| `get_anime_streaming` | `GET /anime/{id}/streaming` | Supported |
+| `get_anime_reviews` | `GET /anime/{id}/reviews` | Supported |
+| `get_anime_stacks` | `GET /anime/{id}/stacks` | Supported |
+| `get_anime_deleted` | `GET /anime/deleted` | Supported |
+| `get_anime_unapproved` | `GET /anime/unapproved` | Supported |
+| `get_anime_denied` | `GET /anime/denied` | Supported |
+| `get_anime_ids` | `GET /anime/ids` | Supported |
 
 
 ## Installation
