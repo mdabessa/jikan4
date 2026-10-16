@@ -619,3 +619,8 @@ class PersonIds(BaseModel):
 
 class ProducerIds(BaseModel):
     data: List[dict[str, object]] = []
+
+
+class VoiceActorList(BaseModel):
+    data: List[VoiceActor] = []
+    pagination: Pagination = Pagination()
