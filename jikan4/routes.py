@@ -931,3 +931,84 @@ def get_reviews_manga(
     return _get_discovery_reviews(
         "reviews/manga", page, limit, sort, preliminary, spoilers, sentiment, sfw, sfw_strict
     )
+
+
+def get_stacks(
+    q: str | None = None,
+    page: int | None = None,
+    limit: int | None = None,
+    order_by: str | None = None,
+    sort: str | None = None,
+    spoilers: bool | None = None,
+    challenges: bool | None = None,
+    official: bool | None = None,
+    stack_type: str | None = None,
+    sfw: bool | None = None,
+    sfw_strict: bool | None = None,
+) -> tuple[str, dict[str, Any]]:
+    params = {
+        "q": q,
+        "page": page,
+        "limit": limit,
+        "order_by": order_by,
+        "sort": sort,
+        "spoilers": spoilers,
+        "challenges": challenges,
+        "official": official,
+        "stack_type": stack_type,
+        "sfw": sfw,
+        "sfw-strict": sfw_strict,
+    }
+    return "stacks", exclude_none(params)
+
+
+def get_stack(
+    stack_id: int, sfw: bool | None = None, sfw_strict: bool | None = None
+) -> tuple[str, dict[str, Any]]:
+    return f"stacks/{stack_id}", exclude_none(
+        {"sfw": sfw, "sfw-strict": sfw_strict}
+    )
+
+
+def get_articles(
+    q: str | None = None,
+    tag: str | None = None,
+    page: int | None = None,
+    limit: int | None = None,
+    order_by: str | None = None,
+    sort: str | None = None,
+) -> tuple[str, dict[str, Any]]:
+    params = {
+        "q": q,
+        "tag": tag,
+        "page": page,
+        "limit": limit,
+        "order_by": order_by,
+        "sort": sort,
+    }
+    return "articles", exclude_none(params)
+
+
+def get_article(article_id: int) -> tuple[str, dict[str, Any]]:
+    return f"articles/{article_id}", {}
+
+
+def get_article_tags() -> tuple[str, dict[str, Any]]:
+    return "articles/tags", {}
+
+
+def get_news(
+    q: str | None = None,
+    tag: str | None = None,
+    page: int | None = None,
+    limit: int | None = None,
+) -> tuple[str, dict[str, Any]]:
+    return "news", exclude_none({"q": q, "tag": tag, "page": page, "limit": limit})
+
+
+def get_news_detail(news_id: int) -> tuple[str, dict[str, Any]]:
+    return f"news/{news_id}", {}
+
+
+def get_news_tags() -> tuple[str, dict[str, Any]]:
+    return "news/tags", {}
