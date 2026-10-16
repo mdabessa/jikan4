@@ -60,6 +60,14 @@ from .models import (
     SeasonCalendar,
     SeasonList,
     ScheduleList,
+    ArticleList,
+    ArticleTags,
+    NewsList,
+    NewsTags,
+    StackList,
+    StackDetail,
+    Article,
+    News,
 )
 from .base import BaseClient
 from . import routes
@@ -1052,6 +1060,87 @@ class AioJikan(BaseClient):
             page, limit, sort, preliminary, spoilers, sentiment, sfw, sfw_strict
         )
         return MangaReviews(**await self._get(endpoint, params))
+
+    async def get_stacks(
+        self,
+        q: str | None = None,
+        page: int | None = None,
+        limit: int | None = None,
+        order_by: str | None = None,
+        sort: str | None = None,
+        spoilers: bool | None = None,
+        challenges: bool | None = None,
+        official: bool | None = None,
+        stack_type: str | None = None,
+        sfw: bool | None = None,
+        sfw_strict: bool | None = None,
+    ) -> StackList:
+        """Search global stacks."""
+        endpoint, params = routes.get_stacks(
+            q,
+            page,
+            limit,
+            order_by,
+            sort,
+            spoilers,
+            challenges,
+            official,
+            stack_type,
+            sfw,
+            sfw_strict,
+        )
+        return StackList(**await self._get(endpoint, params))
+
+    async def get_stack(
+        self, stack_id: int, sfw: bool | None = None, sfw_strict: bool | None = None
+    ) -> StackDetail:
+        """Get stack details."""
+        endpoint, params = routes.get_stack(stack_id, sfw, sfw_strict)
+        return StackDetail(**(await self._get(endpoint, params)))
+
+    async def get_articles(
+        self,
+        q: str | None = None,
+        tag: str | None = None,
+        page: int | None = None,
+        limit: int | None = None,
+        order_by: str | None = None,
+        sort: str | None = None,
+    ) -> ArticleList:
+        """Search global articles."""
+        endpoint, params = routes.get_articles(q, tag, page, limit, order_by, sort)
+        return ArticleList(**await self._get(endpoint, params))
+
+    async def get_article(self, article_id: int) -> Article:
+        """Get article details."""
+        endpoint, params = routes.get_article(article_id)
+        return Article(**(await self._get(endpoint, params))["data"])
+
+    async def get_article_tags(self) -> ArticleTags:
+        """Get article tags."""
+        endpoint, params = routes.get_article_tags()
+        return ArticleTags(**await self._get(endpoint, params))
+
+    async def get_news(
+        self,
+        q: str | None = None,
+        tag: str | None = None,
+        page: int | None = None,
+        limit: int | None = None,
+    ) -> NewsList:
+        """Search global news."""
+        endpoint, params = routes.get_news(q, tag, page, limit)
+        return NewsList(**await self._get(endpoint, params))
+
+    async def get_news_detail(self, news_id: int) -> News:
+        """Get news details."""
+        endpoint, params = routes.get_news_detail(news_id)
+        return News(**(await self._get(endpoint, params))["data"])
+
+    async def get_news_tags(self) -> NewsTags:
+        """Get news tags."""
+        endpoint, params = routes.get_news_tags()
+        return NewsTags(**await self._get(endpoint, params))
 
     async def get_characters(
         self,
