@@ -480,3 +480,189 @@ def get_manga_ids(
         "updated_at": updated_at,
     }
     return "manga/ids", exclude_none(params)
+
+
+def _get_catalog(
+    resource: str,
+    q: str | None = None,
+    page: int | None = None,
+    limit: int | None = None,
+    order_by: str | None = None,
+    sort: str | None = None,
+    letter: str | None = None,
+) -> tuple[str, dict[str, Any]]:
+    params = {
+        "q": q,
+        "page": page,
+        "limit": limit,
+        "order_by": order_by,
+        "sort": sort,
+        "letter": letter,
+    }
+    return resource, exclude_none(params)
+
+
+def get_characters(
+    q: str | None = None,
+    page: int | None = None,
+    limit: int | None = None,
+    order_by: str | None = None,
+    sort: str | None = None,
+    letter: str | None = None,
+) -> tuple[str, dict[str, Any]]:
+    return _get_catalog("characters", q, page, limit, order_by, sort, letter)
+
+
+def get_character(character_id: int) -> tuple[str, dict[str, Any]]:
+    return f"characters/{character_id}", {}
+
+
+def get_character_full(character_id: int) -> tuple[str, dict[str, Any]]:
+    return f"characters/{character_id}/full", {}
+
+
+def get_character_anime(
+    character_id: int, sfw: bool | None = None, sfw_strict: bool | None = None
+) -> tuple[str, dict[str, Any]]:
+    return f"characters/{character_id}/anime", exclude_none(
+        {"sfw": sfw, "sfw-strict": sfw_strict}
+    )
+
+
+def get_character_manga(
+    character_id: int, sfw: bool | None = None, sfw_strict: bool | None = None
+) -> tuple[str, dict[str, Any]]:
+    return f"characters/{character_id}/manga", exclude_none(
+        {"sfw": sfw, "sfw-strict": sfw_strict}
+    )
+
+
+def get_character_articles(
+    character_id: int,
+    page: int | None = None,
+    order_by: str | None = None,
+    sort: str | None = None,
+) -> tuple[str, dict[str, Any]]:
+    return f"characters/{character_id}/articles", exclude_none(
+        {"page": page, "order_by": order_by, "sort": sort}
+    )
+
+
+def get_character_pictures(character_id: int) -> tuple[str, dict[str, Any]]:
+    return f"characters/{character_id}/pictures", {}
+
+
+def get_character_voices(character_id: int) -> tuple[str, dict[str, Any]]:
+    return f"characters/{character_id}/voices", {}
+
+
+def get_character_ids() -> tuple[str, dict[str, Any]]:
+    return "characters/ids", {}
+
+
+def get_people(
+    q: str | None = None,
+    page: int | None = None,
+    limit: int | None = None,
+    order_by: str | None = None,
+    sort: str | None = None,
+    letter: str | None = None,
+) -> tuple[str, dict[str, Any]]:
+    return _get_catalog("people", q, page, limit, order_by, sort, letter)
+
+
+def get_person(person_id: int) -> tuple[str, dict[str, Any]]:
+    return f"people/{person_id}", {}
+
+
+def get_person_full(person_id: int) -> tuple[str, dict[str, Any]]:
+    return f"people/{person_id}/full", {}
+
+
+def get_person_anime(
+    person_id: int, sfw: bool | None = None, sfw_strict: bool | None = None
+) -> tuple[str, dict[str, Any]]:
+    return f"people/{person_id}/anime", exclude_none(
+        {"sfw": sfw, "sfw-strict": sfw_strict}
+    )
+
+
+def get_person_manga(
+    person_id: int, sfw: bool | None = None, sfw_strict: bool | None = None
+) -> tuple[str, dict[str, Any]]:
+    return f"people/{person_id}/manga", exclude_none(
+        {"sfw": sfw, "sfw-strict": sfw_strict}
+    )
+
+
+def get_person_articles(
+    person_id: int,
+    page: int | None = None,
+    order_by: str | None = None,
+    sort: str | None = None,
+) -> tuple[str, dict[str, Any]]:
+    return f"people/{person_id}/articles", exclude_none(
+        {"page": page, "order_by": order_by, "sort": sort}
+    )
+
+
+def get_person_pictures(person_id: int) -> tuple[str, dict[str, Any]]:
+    return f"people/{person_id}/pictures", {}
+
+
+def get_person_voices(
+    person_id: int, sfw: bool | None = None, sfw_strict: bool | None = None
+) -> tuple[str, dict[str, Any]]:
+    return f"people/{person_id}/voices", exclude_none(
+        {"sfw": sfw, "sfw-strict": sfw_strict}
+    )
+
+
+def get_person_ids() -> tuple[str, dict[str, Any]]:
+    return "people/ids", {}
+
+
+def get_producers(
+    q: str | None = None,
+    page: int | None = None,
+    limit: int | None = None,
+    order_by: str | None = None,
+    sort: str | None = None,
+    letter: str | None = None,
+) -> tuple[str, dict[str, Any]]:
+    return _get_catalog("producers", q, page, limit, order_by, sort, letter)
+
+
+def get_producer(producer_id: int) -> tuple[str, dict[str, Any]]:
+    return f"producers/{producer_id}", {}
+
+
+def get_producer_full(producer_id: int) -> tuple[str, dict[str, Any]]:
+    return f"producers/{producer_id}/full", {}
+
+
+def get_producer_external(producer_id: int) -> tuple[str, dict[str, Any]]:
+    return f"producers/{producer_id}/external", {}
+
+
+def get_producer_ids() -> tuple[str, dict[str, Any]]:
+    return "producers/ids", {}
+
+
+def get_genres_anime(filter: str | None = None) -> tuple[str, dict[str, Any]]:
+    return "genres/anime", exclude_none({"filter": filter})
+
+
+def get_genres_manga(filter: str | None = None) -> tuple[str, dict[str, Any]]:
+    return "genres/manga", exclude_none({"filter": filter})
+
+
+def get_magazines(
+    q: str | None = None,
+    page: int | None = None,
+    limit: int | None = None,
+    order_by: str | None = None,
+    sort: str | None = None,
+    letter: str | None = None,
+) -> tuple[str, dict[str, Any]]:
+    return _get_catalog("magazines", q, page, limit, order_by, sort, letter)
