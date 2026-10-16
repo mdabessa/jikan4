@@ -1,5 +1,8 @@
 # jikan4
- A Python wrapper for an anime API, with Tenrai as the default backend.
+
+A synchronous and asynchronous Python wrapper for the Tenrai v1 API. Tenrai
+follows the Jikan v4 response schema, so the same client covers anime, manga,
+catalog resources, discovery, articles, news, and stacks.
 
 
 ## Tenrai Endpoint Support
@@ -112,6 +115,22 @@ The client currently uses these Tenrai v1 endpoints:
 pip install jikan4
 ```
 
+## Client Configuration
+
+Both clients accept a `base_url` and a per-minute `rate_limit`. The default
+backend is `https://api.tenrai.org/v1`.
+
+```python
+from jikan4 import Jikan
+
+jikan = Jikan(rate_limit=60)
+custom = Jikan("https://api.example.test/v1", rate_limit=30)
+```
+
+Every optional endpoint argument is omitted when it is `None`; valid falsy
+values such as `False` and `0` are still sent. The Python argument
+`sfw_strict` is translated to the API parameter `sfw-strict`.
+
 ## Usage
 
 ### Basic Usage
@@ -131,12 +150,9 @@ from jikan4.aiojikan import AioJikan
 
 
 async def main():
-    jikan = AioJikan()
-
-    anime = await jikan.get_anime(1)
-    search = await jikan.search_anime('tv', 'naruto')
-
-    jikan.close()
+    async with AioJikan() as jikan:
+        anime = await jikan.get_anime(1)
+        search = await jikan.search_anime("tv", "naruto")
 
 
 if __name__ == '__main__':

@@ -173,5 +173,5 @@ branch: `feat/articles-news-stacks`
 
 ## Phase 9: Update Documentation and Public API
 
-- [ ] Consolidate and update README.md
-- [ ] Add docstrings that are missing or incomplete
+- [x] Consolidate and update README.md
+- [x] Add docstrings that are missing or incomplete
