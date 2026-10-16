@@ -666,3 +666,268 @@ def get_magazines(
     letter: str | None = None,
 ) -> tuple[str, dict[str, Any]]:
     return _get_catalog("magazines", q, page, limit, order_by, sort, letter)
+
+
+def get_random_anime(
+    sfw: bool | None = None, sfw_strict: bool | None = None
+) -> tuple[str, dict[str, Any]]:
+    return "random/anime", exclude_none({"sfw": sfw, "sfw-strict": sfw_strict})
+
+
+def get_random_manga(
+    sfw: bool | None = None, sfw_strict: bool | None = None
+) -> tuple[str, dict[str, Any]]:
+    return "random/manga", exclude_none({"sfw": sfw, "sfw-strict": sfw_strict})
+
+
+def get_random_character() -> tuple[str, dict[str, Any]]:
+    return "random/characters", {}
+
+
+def get_random_person() -> tuple[str, dict[str, Any]]:
+    return "random/people", {}
+
+
+def get_recommendations_anime(
+    page: int | None = None,
+    limit: int | None = None,
+    sfw: bool | None = None,
+    sfw_strict: bool | None = None,
+) -> tuple[str, dict[str, Any]]:
+    params = {"page": page, "limit": limit, "sfw": sfw, "sfw-strict": sfw_strict}
+    return "recommendations/anime", exclude_none(params)
+
+
+def get_recommendations_manga(
+    page: int | None = None,
+    limit: int | None = None,
+    sfw: bool | None = None,
+    sfw_strict: bool | None = None,
+) -> tuple[str, dict[str, Any]]:
+    params = {"page": page, "limit": limit, "sfw": sfw, "sfw-strict": sfw_strict}
+    return "recommendations/manga", exclude_none(params)
+
+
+def get_top_anime(
+    page: int | None = None,
+    limit: int | None = None,
+    type: str | None = None,
+    filter: str | None = None,
+    rating: str | None = None,
+    sfw: bool | None = None,
+    sfw_strict: bool | None = None,
+) -> tuple[str, dict[str, Any]]:
+    params = {
+        "page": page,
+        "limit": limit,
+        "type": type,
+        "filter": filter,
+        "rating": rating,
+        "sfw": sfw,
+        "sfw-strict": sfw_strict,
+    }
+    return "top/anime", exclude_none(params)
+
+
+def get_top_manga(
+    page: int | None = None,
+    limit: int | None = None,
+    type: str | None = None,
+    filter: str | None = None,
+    sfw: bool | None = None,
+    sfw_strict: bool | None = None,
+) -> tuple[str, dict[str, Any]]:
+    params = {
+        "page": page,
+        "limit": limit,
+        "type": type,
+        "filter": filter,
+        "sfw": sfw,
+        "sfw-strict": sfw_strict,
+    }
+    return "top/manga", exclude_none(params)
+
+
+def get_top_characters(
+    page: int | None = None, limit: int | None = None
+) -> tuple[str, dict[str, Any]]:
+    return "top/characters", exclude_none({"page": page, "limit": limit})
+
+
+def get_top_people(
+    page: int | None = None, limit: int | None = None
+) -> tuple[str, dict[str, Any]]:
+    return "top/people", exclude_none({"page": page, "limit": limit})
+
+
+def get_top_reviews(
+    page: int | None = None,
+    limit: int | None = None,
+    type: str | None = None,
+    preliminary: bool | None = None,
+    spoilers: bool | None = None,
+    sfw: bool | None = None,
+    sfw_strict: bool | None = None,
+) -> tuple[str, dict[str, Any]]:
+    params = {
+        "page": page,
+        "limit": limit,
+        "type": type,
+        "preliminary": preliminary,
+        "spoilers": spoilers,
+        "sfw": sfw,
+        "sfw-strict": sfw_strict,
+    }
+    return "top/reviews", exclude_none(params)
+
+
+def get_seasons() -> tuple[str, dict[str, Any]]:
+    return "seasons", {}
+
+
+def _get_season(
+    endpoint: str,
+    filter: str | None = None,
+    rating: str | None = None,
+    sfw: bool | None = None,
+    sfw_strict: bool | None = None,
+    unapproved: bool | None = None,
+    continuing: bool | None = None,
+    kids: bool | None = None,
+    order_by: str | None = None,
+    sort: str | None = None,
+    page: int | None = None,
+    limit: int | None = None,
+) -> tuple[str, dict[str, Any]]:
+    params = {
+        "filter": filter,
+        "rating": rating,
+        "sfw": sfw,
+        "sfw-strict": sfw_strict,
+        "unapproved": unapproved,
+        "continuing": continuing,
+        "kids": kids,
+        "order_by": order_by,
+        "sort": sort,
+        "page": page,
+        "limit": limit,
+    }
+    return endpoint, exclude_none(params)
+
+
+def get_season(
+    year: int,
+    season: str,
+    filter: str | None = None,
+    rating: str | None = None,
+    sfw: bool | None = None,
+    sfw_strict: bool | None = None,
+    unapproved: bool | None = None,
+    continuing: bool | None = None,
+    kids: bool | None = None,
+    order_by: str | None = None,
+    sort: str | None = None,
+    page: int | None = None,
+    limit: int | None = None,
+) -> tuple[str, dict[str, Any]]:
+    return _get_season(
+        f"seasons/{year}/{season}",
+        filter,
+        rating,
+        sfw,
+        sfw_strict,
+        unapproved,
+        continuing,
+        kids,
+        order_by,
+        sort,
+        page,
+        limit,
+    )
+
+
+def get_seasons_now(**kwargs: Any) -> tuple[str, dict[str, Any]]:
+    return _get_season("seasons/now", **kwargs)
+
+
+def get_seasons_previous(**kwargs: Any) -> tuple[str, dict[str, Any]]:
+    return _get_season("seasons/previous", **kwargs)
+
+
+def get_seasons_upcoming(**kwargs: Any) -> tuple[str, dict[str, Any]]:
+    return _get_season("seasons/upcoming", **kwargs)
+
+
+def get_schedules(
+    filter: str | None = None,
+    kids: bool | None = None,
+    sfw: bool | None = None,
+    sfw_strict: bool | None = None,
+    unapproved: bool | None = None,
+    page: int | None = None,
+    limit: int | None = None,
+) -> tuple[str, dict[str, Any]]:
+    params = {
+        "filter": filter,
+        "kids": kids,
+        "sfw": sfw,
+        "sfw-strict": sfw_strict,
+        "unapproved": unapproved,
+        "page": page,
+        "limit": limit,
+    }
+    return "schedules", exclude_none(params)
+
+
+def _get_discovery_reviews(
+    resource: str,
+    page: int | None = None,
+    limit: int | None = None,
+    sort: str | None = None,
+    preliminary: bool | None = None,
+    spoilers: bool | None = None,
+    sentiment: str | None = None,
+    sfw: bool | None = None,
+    sfw_strict: bool | None = None,
+) -> tuple[str, dict[str, Any]]:
+    params = {
+        "page": page,
+        "limit": limit,
+        "sort": sort,
+        "preliminary": preliminary,
+        "spoilers": spoilers,
+        "sentiment": sentiment,
+        "sfw": sfw,
+        "sfw-strict": sfw_strict,
+    }
+    return resource, exclude_none(params)
+
+
+def get_reviews_anime(
+    page: int | None = None,
+    limit: int | None = None,
+    sort: str | None = None,
+    preliminary: bool | None = None,
+    spoilers: bool | None = None,
+    sentiment: str | None = None,
+    sfw: bool | None = None,
+    sfw_strict: bool | None = None,
+) -> tuple[str, dict[str, Any]]:
+    return _get_discovery_reviews(
+        "reviews/anime", page, limit, sort, preliminary, spoilers, sentiment, sfw, sfw_strict
+    )
+
+
+def get_reviews_manga(
+    page: int | None = None,
+    limit: int | None = None,
+    sort: str | None = None,
+    preliminary: bool | None = None,
+    spoilers: bool | None = None,
+    sentiment: str | None = None,
+    sfw: bool | None = None,
+    sfw_strict: bool | None = None,
+) -> tuple[str, dict[str, Any]]:
+    return _get_discovery_reviews(
+        "reviews/manga", page, limit, sort, preliminary, spoilers, sentiment, sfw, sfw_strict
+    )

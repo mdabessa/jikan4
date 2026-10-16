@@ -142,17 +142,17 @@ branch: `feat/catalog-resources`
 ## Phase 7: Add Discovery Endpoints
 branch: `feat/discovery-endpoints`
 
-- [ ] Create a new branch for this phase.
-- [ ] Implement discovery endpoints:
+- [x] Create a new branch for this phase.
+- [x] Implement discovery endpoints:
     Random anime, manga, characters, and people
     Anime and manga recommendations
     Top anime, manga, people, characters, and reviews
     Seasons
     Reviews
     Schedules
-- [ ] Update README.md
-- [ ] Add tests for the new functionality
-- [ ] Merge the branch into `main` and tag it with the next semantic version number.
+- [x] Update README.md
+- [x] Add tests for the new functionality
+- [x] Merge the branch into `main` and tag it with the next semantic version number.
 
 ## Phase 8: Add Articles, News, and Stacks
 branch: `feat/articles-news-stacks`
