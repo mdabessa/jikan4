@@ -97,6 +97,14 @@ The client currently uses these Tenrai v1 endpoints:
 | `get_schedules` | `GET /schedules` | Supported |
 | `get_reviews_anime` | `GET /reviews/anime` | Supported |
 | `get_reviews_manga` | `GET /reviews/manga` | Supported |
+| `get_stacks` | `GET /stacks` | Supported |
+| `get_stack` | `GET /stacks/{id}` | Supported |
+| `get_articles` | `GET /articles` | Supported |
+| `get_article_tags` | `GET /articles/tags` | Supported |
+| `get_article` | `GET /articles/{id}` | Supported |
+| `get_news` | `GET /news` | Supported |
+| `get_news_tags` | `GET /news/tags` | Supported |
+| `get_news_detail` | `GET /news/{id}` | Supported |
 
 
 ## Installation

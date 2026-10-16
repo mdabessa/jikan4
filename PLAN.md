@@ -157,8 +157,8 @@ branch: `feat/discovery-endpoints`
 ## Phase 8: Add Articles, News, and Stacks
 branch: `feat/articles-news-stacks`
 
-- [ ] Create a new branch for this phase.
-- [ ] Implement content endpoints:
+- [x] Create a new branch for this phase.
+- [x] Implement content endpoints:
     Global stacks
     Stack details
     Articles
@@ -167,8 +167,8 @@ branch: `feat/articles-news-stacks`
     News
     News tags
     News details
-- [ ] Update README.md
-- [ ] Add tests for the new functionality
+- [x] Update README.md
+- [x] Add tests for the new functionality
 - [ ] Merge the branch into `main` and tag it with the next semantic version number.
 
 ## Phase 9: Update Documentation and Public API
