@@ -179,6 +179,9 @@ class News(BaseModel):
     images: Image = Image()
     comments: int = 0
     excerpt: str | None = None
+    content: str | None = None
+    published_at: str | None = None
+    tags: List[str] = []
 
 
 class Episode(BaseModel):
@@ -312,6 +315,10 @@ class Article(BaseModel):
     images: Image = Image()
     comments: int = 0
     excerpt: str | None = None
+    summary: str | None = None
+    published_at: str | None = None
+    views: int = 0
+    tags: List[str] = []
 
 
 class AnimeArticles(BaseModel):
@@ -624,6 +631,42 @@ class ProducerIds(BaseModel):
 class VoiceActorList(BaseModel):
     data: List[VoiceActor] = []
     pagination: Pagination = Pagination()
+
+
+class ArticleList(BaseModel):
+    data: List[Article] = []
+    pagination: Pagination = Pagination()
+
+
+class ArticleTag(BaseModel):
+    name: str | None = None
+    count: int = 0
+
+
+class ArticleTags(BaseModel):
+    data: List[ArticleTag] = []
+
+
+class NewsList(BaseModel):
+    data: List[News] = []
+    pagination: Pagination = Pagination()
+
+
+class NewsTag(BaseModel):
+    name: str | None = None
+    count: int = 0
+
+
+class NewsTags(BaseModel):
+    data: List[NewsTag] = []
+
+
+class StackList(AnimeStacks):
+    pass
+
+
+class StackDetail(Stack):
+    entries: List[Entry] = []
 
 
 class SeasonList(AnimeSearch):
