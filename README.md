@@ -52,6 +52,32 @@ The client currently uses these Tenrai v1 endpoints:
 | `get_manga_unapproved` | `GET /manga/unapproved` | Supported |
 | `get_manga_denied` | `GET /manga/denied` | Supported |
 | `get_manga_ids` | `GET /manga/ids` | Supported |
+| `get_characters` | `GET /characters` | Supported |
+| `get_character` | `GET /characters/{id}` | Supported |
+| `get_character_full` | `GET /characters/{id}/full` | Supported |
+| `get_character_anime` | `GET /characters/{id}/anime` | Supported |
+| `get_character_manga` | `GET /characters/{id}/manga` | Supported |
+| `get_character_articles` | `GET /characters/{id}/articles` | Supported |
+| `get_character_pictures` | `GET /characters/{id}/pictures` | Supported |
+| `get_character_voices` | `GET /characters/{id}/voices` | Supported |
+| `get_character_ids` | `GET /characters/ids` | Supported |
+| `get_people` | `GET /people` | Supported |
+| `get_person` | `GET /people/{id}` | Supported |
+| `get_person_full` | `GET /people/{id}/full` | Supported |
+| `get_person_anime` | `GET /people/{id}/anime` | Supported |
+| `get_person_manga` | `GET /people/{id}/manga` | Supported |
+| `get_person_articles` | `GET /people/{id}/articles` | Supported |
+| `get_person_pictures` | `GET /people/{id}/pictures` | Supported |
+| `get_person_voices` | `GET /people/{id}/voices` | Supported |
+| `get_person_ids` | `GET /people/ids` | Supported |
+| `get_producers` | `GET /producers` | Supported |
+| `get_producer` | `GET /producers/{id}` | Supported |
+| `get_producer_full` | `GET /producers/{id}/full` | Supported |
+| `get_producer_external` | `GET /producers/{id}/external` | Supported |
+| `get_producer_ids` | `GET /producers/ids` | Supported |
+| `get_genres_anime` | `GET /genres/anime` | Supported |
+| `get_genres_manga` | `GET /genres/manga` | Supported |
+| `get_magazines` | `GET /magazines` | Supported |
 
 
 ## Installation
