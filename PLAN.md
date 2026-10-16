@@ -152,7 +152,7 @@ branch: `feat/discovery-endpoints`
     Schedules
 - [x] Update README.md
 - [x] Add tests for the new functionality
-- [ ] Merge the branch into `main` and tag it with the next semantic version number.
+- [x] Merge the branch into `main` and tag it with the next semantic version number.
 
 ## Phase 8: Add Articles, News, and Stacks
 branch: `feat/articles-news-stacks`
