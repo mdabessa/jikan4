@@ -632,3 +632,12 @@ class SeasonList(AnimeSearch):
 
 class ScheduleList(AnimeSearch):
     pass
+
+
+class Season(BaseModel):
+    year: int | None = None
+    seasons: List[str] = []
+
+
+class SeasonCalendar(BaseModel):
+    data: List[Season] = []

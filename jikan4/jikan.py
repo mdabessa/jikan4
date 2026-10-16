@@ -55,6 +55,9 @@ from .models import (
     PersonIds,
     ProducerIds,
     VoiceActorList,
+    SeasonCalendar,
+    SeasonList,
+    ScheduleList,
 )
 from .base import BaseClient
 from . import routes
@@ -945,3 +948,285 @@ class Jikan(BaseClient):
         """Search for manga magazines."""
         endpoint, params = routes.get_magazines(q, page, limit, order_by, sort, letter)
         return MagazineList(**self._get(endpoint, params))
+
+    def get_random_anime(
+        self, sfw: bool | None = None, sfw_strict: bool | None = None
+    ) -> Anime:
+        """Get a random anime."""
+        endpoint, params = routes.get_random_anime(sfw, sfw_strict)
+        return Anime(**self._get(endpoint, params)["data"])
+
+    def get_random_manga(
+        self, sfw: bool | None = None, sfw_strict: bool | None = None
+    ) -> Manga:
+        """Get a random manga."""
+        endpoint, params = routes.get_random_manga(sfw, sfw_strict)
+        return Manga(**self._get(endpoint, params)["data"])
+
+    def get_random_character(self) -> Character:
+        """Get a random character."""
+        endpoint, params = routes.get_random_character()
+        return Character(**self._get(endpoint, params)["data"])
+
+    def get_random_person(self) -> Person:
+        """Get a random person."""
+        endpoint, params = routes.get_random_person()
+        return Person(**self._get(endpoint, params)["data"])
+
+    def get_recommendations_anime(
+        self,
+        page: int | None = None,
+        limit: int | None = None,
+        sfw: bool | None = None,
+        sfw_strict: bool | None = None,
+    ) -> AnimeRecommendations:
+        """Get global anime recommendations."""
+        endpoint, params = routes.get_recommendations_anime(page, limit, sfw, sfw_strict)
+        return AnimeRecommendations(**self._get(endpoint, params))
+
+    def get_recommendations_manga(
+        self,
+        page: int | None = None,
+        limit: int | None = None,
+        sfw: bool | None = None,
+        sfw_strict: bool | None = None,
+    ) -> MangaRecommendations:
+        """Get global manga recommendations."""
+        endpoint, params = routes.get_recommendations_manga(page, limit, sfw, sfw_strict)
+        return MangaRecommendations(**self._get(endpoint, params))
+
+    def get_top_anime(
+        self,
+        page: int | None = None,
+        limit: int | None = None,
+        type: str | None = None,
+        filter: str | None = None,
+        rating: str | None = None,
+        sfw: bool | None = None,
+        sfw_strict: bool | None = None,
+    ) -> AnimeSearch:
+        """Get top anime."""
+        endpoint, params = routes.get_top_anime(page, limit, type, filter, rating, sfw, sfw_strict)
+        return AnimeSearch(**self._get(endpoint, params))
+
+    def get_top_manga(
+        self,
+        page: int | None = None,
+        limit: int | None = None,
+        type: str | None = None,
+        filter: str | None = None,
+        sfw: bool | None = None,
+        sfw_strict: bool | None = None,
+    ) -> MangaSearch:
+        """Get top manga."""
+        endpoint, params = routes.get_top_manga(page, limit, type, filter, sfw, sfw_strict)
+        return MangaSearch(**self._get(endpoint, params))
+
+    def get_top_characters(
+        self, page: int | None = None, limit: int | None = None
+    ) -> CharacterList:
+        """Get top characters."""
+        endpoint, params = routes.get_top_characters(page, limit)
+        return CharacterList(**self._get(endpoint, params))
+
+    def get_top_people(
+        self, page: int | None = None, limit: int | None = None
+    ) -> PersonList:
+        """Get top people."""
+        endpoint, params = routes.get_top_people(page, limit)
+        return PersonList(**self._get(endpoint, params))
+
+    def get_top_reviews(
+        self,
+        page: int | None = None,
+        limit: int | None = None,
+        type: str | None = None,
+        preliminary: bool | None = None,
+        spoilers: bool | None = None,
+        sfw: bool | None = None,
+        sfw_strict: bool | None = None,
+    ) -> AnimeReviews:
+        """Get top reviews."""
+        endpoint, params = routes.get_top_reviews(
+            page, limit, type, preliminary, spoilers, sfw, sfw_strict
+        )
+        return AnimeReviews(**self._get(endpoint, params))
+
+    def get_seasons(self) -> SeasonCalendar:
+        """Get the available anime seasons."""
+        endpoint, params = routes.get_seasons()
+        return SeasonCalendar(**self._get(endpoint, params))
+
+    def get_season(
+        self,
+        year: int,
+        season: str,
+        filter: str | None = None,
+        rating: str | None = None,
+        sfw: bool | None = None,
+        sfw_strict: bool | None = None,
+        unapproved: bool | None = None,
+        continuing: bool | None = None,
+        kids: bool | None = None,
+        order_by: str | None = None,
+        sort: str | None = None,
+        page: int | None = None,
+        limit: int | None = None,
+    ) -> SeasonList:
+        """Get anime for a specific season."""
+        endpoint, params = routes.get_season(
+            year,
+            season,
+            filter,
+            rating,
+            sfw,
+            sfw_strict,
+            unapproved,
+            continuing,
+            kids,
+            order_by,
+            sort,
+            page,
+            limit,
+        )
+        return SeasonList(**self._get(endpoint, params))
+
+    def get_seasons_now(
+        self,
+        filter: str | None = None,
+        rating: str | None = None,
+        sfw: bool | None = None,
+        sfw_strict: bool | None = None,
+        unapproved: bool | None = None,
+        continuing: bool | None = None,
+        kids: bool | None = None,
+        order_by: str | None = None,
+        sort: str | None = None,
+        page: int | None = None,
+        limit: int | None = None,
+    ) -> SeasonList:
+        """Get anime from the current season."""
+        endpoint, params = routes.get_seasons_now(
+            filter=filter,
+            rating=rating,
+            sfw=sfw,
+            sfw_strict=sfw_strict,
+            unapproved=unapproved,
+            continuing=continuing,
+            kids=kids,
+            order_by=order_by,
+            sort=sort,
+            page=page,
+            limit=limit,
+        )
+        return SeasonList(**self._get(endpoint, params))
+
+    def get_seasons_previous(
+        self,
+        filter: str | None = None,
+        rating: str | None = None,
+        sfw: bool | None = None,
+        sfw_strict: bool | None = None,
+        unapproved: bool | None = None,
+        continuing: bool | None = None,
+        kids: bool | None = None,
+        order_by: str | None = None,
+        sort: str | None = None,
+        page: int | None = None,
+        limit: int | None = None,
+    ) -> SeasonList:
+        """Get anime from the previous season."""
+        endpoint, params = routes.get_seasons_previous(
+            filter=filter,
+            rating=rating,
+            sfw=sfw,
+            sfw_strict=sfw_strict,
+            unapproved=unapproved,
+            continuing=continuing,
+            kids=kids,
+            order_by=order_by,
+            sort=sort,
+            page=page,
+            limit=limit,
+        )
+        return SeasonList(**self._get(endpoint, params))
+
+    def get_seasons_upcoming(
+        self,
+        filter: str | None = None,
+        rating: str | None = None,
+        sfw: bool | None = None,
+        sfw_strict: bool | None = None,
+        unapproved: bool | None = None,
+        continuing: bool | None = None,
+        kids: bool | None = None,
+        order_by: str | None = None,
+        sort: str | None = None,
+        page: int | None = None,
+        limit: int | None = None,
+    ) -> SeasonList:
+        """Get anime from the upcoming season."""
+        endpoint, params = routes.get_seasons_upcoming(
+            filter=filter,
+            rating=rating,
+            sfw=sfw,
+            sfw_strict=sfw_strict,
+            unapproved=unapproved,
+            continuing=continuing,
+            kids=kids,
+            order_by=order_by,
+            sort=sort,
+            page=page,
+            limit=limit,
+        )
+        return SeasonList(**self._get(endpoint, params))
+
+    def get_schedules(
+        self,
+        filter: str | None = None,
+        kids: bool | None = None,
+        sfw: bool | None = None,
+        sfw_strict: bool | None = None,
+        unapproved: bool | None = None,
+        page: int | None = None,
+        limit: int | None = None,
+    ) -> ScheduleList:
+        """Get anime broadcast schedules."""
+        endpoint, params = routes.get_schedules(
+            filter, kids, sfw, sfw_strict, unapproved, page, limit
+        )
+        return ScheduleList(**self._get(endpoint, params))
+
+    def get_reviews_anime(
+        self,
+        page: int | None = None,
+        limit: int | None = None,
+        sort: str | None = None,
+        preliminary: bool | None = None,
+        spoilers: bool | None = None,
+        sentiment: str | None = None,
+        sfw: bool | None = None,
+        sfw_strict: bool | None = None,
+    ) -> AnimeReviews:
+        """Get global anime reviews."""
+        endpoint, params = routes.get_reviews_anime(
+            page, limit, sort, preliminary, spoilers, sentiment, sfw, sfw_strict
+        )
+        return AnimeReviews(**self._get(endpoint, params))
+
+    def get_reviews_manga(
+        self,
+        page: int | None = None,
+        limit: int | None = None,
+        sort: str | None = None,
+        preliminary: bool | None = None,
+        spoilers: bool | None = None,
+        sentiment: str | None = None,
+        sfw: bool | None = None,
+        sfw_strict: bool | None = None,
+    ) -> MangaReviews:
+        """Get global manga reviews."""
+        endpoint, params = routes.get_reviews_manga(
+            page, limit, sort, preliminary, spoilers, sentiment, sfw, sfw_strict
+        )
+        return MangaReviews(**self._get(endpoint, params))
