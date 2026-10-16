@@ -127,17 +127,17 @@ branch: `feat/manga-support`
 ## Phase 6: Add Catalog Resources
 branch: `feat/catalog-resources`
 
-- [ ] Create a new branch for this phase.
-- [ ] Implement catalog resources:
+- [x] Create a new branch for this phase.
+- [x] Implement catalog resources:
     Characters
     People
     Producers
     Genres
     Magazines
-- [ ] Share reusable pagination, image, person, and entry models where schemas are compatible.
-- [ ] Update README.md
-- [ ] Add tests for the new functionality
-- [ ] Merge the branch into `main` and tag it with the next semantic version number.
+- [x] Share reusable pagination, image, person, and entry models where schemas are compatible.
+- [x] Update README.md
+- [x] Add tests for the new functionality
+- [x] Merge the branch into `main` and tag it with the next semantic version number.
 
 ## Phase 7: Add Discovery Endpoints
 branch: `feat/discovery-endpoints`

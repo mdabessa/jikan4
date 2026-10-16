@@ -41,6 +41,22 @@ from .models import (
     MangaRecommendations,
     MangaCatalog,
     MangaIds,
+    Character,
+    CharacterList,
+    CharacterAnimeList,
+    CharacterMangaList,
+    Person,
+    PersonList,
+    PersonAnimeList,
+    PersonMangaList,
+    Producer,
+    ProducerList,
+    GenreList,
+    MagazineList,
+    CharacterIds,
+    PersonIds,
+    ProducerIds,
+    VoiceActorList,
 )
 from .base import BaseClient
 from . import routes
@@ -751,3 +767,202 @@ class AioJikan(BaseClient):
             type, status, sfw, sfw_strict, include, updated_at
         )
         return MangaIds(**await self._get(endpoint, params))
+
+    async def get_characters(
+        self,
+        q: str | None = None,
+        page: int | None = None,
+        limit: int | None = None,
+        order_by: str | None = None,
+        sort: str | None = None,
+        letter: str | None = None,
+    ) -> CharacterList:
+        """Search for characters."""
+        endpoint, params = routes.get_characters(q, page, limit, order_by, sort, letter)
+        return CharacterList(**await self._get(endpoint, params))
+
+    async def get_character(self, character_id: int) -> Character:
+        """Get character information."""
+        endpoint, params = routes.get_character(character_id)
+        return Character(**(await self._get(endpoint, params))["data"])
+
+    async def get_character_full(self, character_id: int) -> Character:
+        """Get character information with full details."""
+        endpoint, params = routes.get_character_full(character_id)
+        return Character(**(await self._get(endpoint, params))["data"])
+
+    async def get_character_anime(
+        self,
+        character_id: int,
+        sfw: bool | None = None,
+        sfw_strict: bool | None = None,
+    ) -> CharacterAnimeList:
+        """Get anime appearances for a character."""
+        endpoint, params = routes.get_character_anime(character_id, sfw, sfw_strict)
+        return CharacterAnimeList(**await self._get(endpoint, params))
+
+    async def get_character_manga(
+        self,
+        character_id: int,
+        sfw: bool | None = None,
+        sfw_strict: bool | None = None,
+    ) -> CharacterMangaList:
+        """Get manga appearances for a character."""
+        endpoint, params = routes.get_character_manga(character_id, sfw, sfw_strict)
+        return CharacterMangaList(**await self._get(endpoint, params))
+
+    async def get_character_articles(
+        self,
+        character_id: int,
+        page: int | None = None,
+        order_by: str | None = None,
+        sort: str | None = None,
+    ) -> AnimeArticles:
+        """Get articles about a character."""
+        endpoint, params = routes.get_character_articles(character_id, page, order_by, sort)
+        return AnimeArticles(**await self._get(endpoint, params))
+
+    async def get_character_pictures(self, character_id: int) -> AnimePictures:
+        """Get character pictures."""
+        endpoint, params = routes.get_character_pictures(character_id)
+        return AnimePictures(**await self._get(endpoint, params))
+
+    async def get_character_voices(self, character_id: int) -> VoiceActorList:
+        """Get voice actors for a character."""
+        endpoint, params = routes.get_character_voices(character_id)
+        return VoiceActorList(**await self._get(endpoint, params))
+
+    async def get_character_ids(self) -> CharacterIds:
+        """Get character IDs."""
+        endpoint, params = routes.get_character_ids()
+        return CharacterIds(**await self._get(endpoint, params))
+
+    async def get_people(
+        self,
+        q: str | None = None,
+        page: int | None = None,
+        limit: int | None = None,
+        order_by: str | None = None,
+        sort: str | None = None,
+        letter: str | None = None,
+    ) -> PersonList:
+        """Search for people."""
+        endpoint, params = routes.get_people(q, page, limit, order_by, sort, letter)
+        return PersonList(**await self._get(endpoint, params))
+
+    async def get_person(self, person_id: int) -> Person:
+        """Get person information."""
+        endpoint, params = routes.get_person(person_id)
+        return Person(**(await self._get(endpoint, params))["data"])
+
+    async def get_person_full(self, person_id: int) -> Person:
+        """Get person information with full details."""
+        endpoint, params = routes.get_person_full(person_id)
+        return Person(**(await self._get(endpoint, params))["data"])
+
+    async def get_person_anime(
+        self,
+        person_id: int,
+        sfw: bool | None = None,
+        sfw_strict: bool | None = None,
+    ) -> PersonAnimeList:
+        """Get anime credits for a person."""
+        endpoint, params = routes.get_person_anime(person_id, sfw, sfw_strict)
+        return PersonAnimeList(**await self._get(endpoint, params))
+
+    async def get_person_manga(
+        self,
+        person_id: int,
+        sfw: bool | None = None,
+        sfw_strict: bool | None = None,
+    ) -> PersonMangaList:
+        """Get manga credits for a person."""
+        endpoint, params = routes.get_person_manga(person_id, sfw, sfw_strict)
+        return PersonMangaList(**await self._get(endpoint, params))
+
+    async def get_person_articles(
+        self,
+        person_id: int,
+        page: int | None = None,
+        order_by: str | None = None,
+        sort: str | None = None,
+    ) -> AnimeArticles:
+        """Get articles about a person."""
+        endpoint, params = routes.get_person_articles(person_id, page, order_by, sort)
+        return AnimeArticles(**await self._get(endpoint, params))
+
+    async def get_person_pictures(self, person_id: int) -> AnimePictures:
+        """Get person pictures."""
+        endpoint, params = routes.get_person_pictures(person_id)
+        return AnimePictures(**await self._get(endpoint, params))
+
+    async def get_person_voices(
+        self,
+        person_id: int,
+        sfw: bool | None = None,
+        sfw_strict: bool | None = None,
+    ) -> VoiceActorList:
+        """Get voice acting roles for a person."""
+        endpoint, params = routes.get_person_voices(person_id, sfw, sfw_strict)
+        return VoiceActorList(**await self._get(endpoint, params))
+
+    async def get_person_ids(self) -> PersonIds:
+        """Get person IDs."""
+        endpoint, params = routes.get_person_ids()
+        return PersonIds(**await self._get(endpoint, params))
+
+    async def get_producers(
+        self,
+        q: str | None = None,
+        page: int | None = None,
+        limit: int | None = None,
+        order_by: str | None = None,
+        sort: str | None = None,
+        letter: str | None = None,
+    ) -> ProducerList:
+        """Search for producers."""
+        endpoint, params = routes.get_producers(q, page, limit, order_by, sort, letter)
+        return ProducerList(**await self._get(endpoint, params))
+
+    async def get_producer(self, producer_id: int) -> Producer:
+        """Get producer information."""
+        endpoint, params = routes.get_producer(producer_id)
+        return Producer(**(await self._get(endpoint, params))["data"])
+
+    async def get_producer_full(self, producer_id: int) -> Producer:
+        """Get producer information with full details."""
+        endpoint, params = routes.get_producer_full(producer_id)
+        return Producer(**(await self._get(endpoint, params))["data"])
+
+    async def get_producer_external(self, producer_id: int) -> AnimeExternal:
+        """Get external links for a producer."""
+        endpoint, params = routes.get_producer_external(producer_id)
+        return AnimeExternal(**await self._get(endpoint, params))
+
+    async def get_producer_ids(self) -> ProducerIds:
+        """Get producer IDs."""
+        endpoint, params = routes.get_producer_ids()
+        return ProducerIds(**await self._get(endpoint, params))
+
+    async def get_genres_anime(self, filter: str | None = None) -> GenreList:
+        """Get anime genres."""
+        endpoint, params = routes.get_genres_anime(filter)
+        return GenreList(**await self._get(endpoint, params))
+
+    async def get_genres_manga(self, filter: str | None = None) -> GenreList:
+        """Get manga genres."""
+        endpoint, params = routes.get_genres_manga(filter)
+        return GenreList(**await self._get(endpoint, params))
+
+    async def get_magazines(
+        self,
+        q: str | None = None,
+        page: int | None = None,
+        limit: int | None = None,
+        order_by: str | None = None,
+        sort: str | None = None,
+        letter: str | None = None,
+    ) -> MagazineList:
+        """Search for manga magazines."""
+        endpoint, params = routes.get_magazines(q, page, limit, order_by, sort, letter)
+        return MagazineList(**await self._get(endpoint, params))

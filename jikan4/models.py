@@ -542,3 +542,85 @@ class MangaId(BaseModel):
 class MangaIds(BaseModel):
     data: List[MangaId] = []
     pagination: Pagination = Pagination()
+
+
+class CharacterAnime(BaseModel):
+    role: str | None = None
+    anime: Entry = Entry()
+    character: Character = Character()
+
+
+class CharacterManga(BaseModel):
+    role: str | None = None
+    manga: Entry = Entry()
+    character: Character = Character()
+
+
+class PersonAnime(BaseModel):
+    position: str | None = None
+    anime: Entry = Entry()
+
+
+class PersonManga(BaseModel):
+    position: str | None = None
+    manga: Entry = Entry()
+
+
+class CharacterAnimeList(BaseModel):
+    data: List[CharacterAnime] = []
+    pagination: Pagination = Pagination()
+
+
+class CharacterMangaList(BaseModel):
+    data: List[CharacterManga] = []
+    pagination: Pagination = Pagination()
+
+
+class PersonAnimeList(BaseModel):
+    data: List[PersonAnime] = []
+    pagination: Pagination = Pagination()
+
+
+class PersonMangaList(BaseModel):
+    data: List[PersonManga] = []
+    pagination: Pagination = Pagination()
+
+
+class CharacterList(BaseModel):
+    data: List[Character] = []
+    pagination: Pagination = Pagination()
+
+
+class PersonList(BaseModel):
+    data: List[Person] = []
+    pagination: Pagination = Pagination()
+
+
+class ProducerList(BaseModel):
+    data: List[Producer] = []
+    pagination: Pagination = Pagination()
+
+
+class GenreList(BaseModel):
+    data: List[Genre] = []
+
+
+class MagazineList(BaseModel):
+    data: List[Genre] = []
+
+
+class CharacterIds(BaseModel):
+    data: List[dict[str, object]] = []
+
+
+class PersonIds(BaseModel):
+    data: List[dict[str, object]] = []
+
+
+class ProducerIds(BaseModel):
+    data: List[dict[str, object]] = []
+
+
+class VoiceActorList(BaseModel):
+    data: List[VoiceActor] = []
+    pagination: Pagination = Pagination()
