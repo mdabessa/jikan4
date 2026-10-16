@@ -78,6 +78,25 @@ The client currently uses these Tenrai v1 endpoints:
 | `get_genres_anime` | `GET /genres/anime` | Supported |
 | `get_genres_manga` | `GET /genres/manga` | Supported |
 | `get_magazines` | `GET /magazines` | Supported |
+| `get_random_anime` | `GET /random/anime` | Supported |
+| `get_random_manga` | `GET /random/manga` | Supported |
+| `get_random_character` | `GET /random/characters` | Supported |
+| `get_random_person` | `GET /random/people` | Supported |
+| `get_recommendations_anime` | `GET /recommendations/anime` | Supported |
+| `get_recommendations_manga` | `GET /recommendations/manga` | Supported |
+| `get_top_anime` | `GET /top/anime` | Supported |
+| `get_top_manga` | `GET /top/manga` | Supported |
+| `get_top_characters` | `GET /top/characters` | Supported |
+| `get_top_people` | `GET /top/people` | Supported |
+| `get_top_reviews` | `GET /top/reviews` | Supported |
+| `get_seasons` | `GET /seasons` | Supported |
+| `get_season` | `GET /seasons/{year}/{season}` | Supported |
+| `get_seasons_now` | `GET /seasons/now` | Supported |
+| `get_seasons_previous` | `GET /seasons/previous` | Supported |
+| `get_seasons_upcoming` | `GET /seasons/upcoming` | Supported |
+| `get_schedules` | `GET /schedules` | Supported |
+| `get_reviews_anime` | `GET /reviews/anime` | Supported |
+| `get_reviews_manga` | `GET /reviews/manga` | Supported |
 
 
 ## Installation
