@@ -624,3 +624,11 @@ class ProducerIds(BaseModel):
 class VoiceActorList(BaseModel):
     data: List[VoiceActor] = []
     pagination: Pagination = Pagination()
+
+
+class SeasonList(AnimeSearch):
+    pass
+
+
+class ScheduleList(AnimeSearch):
+    pass
