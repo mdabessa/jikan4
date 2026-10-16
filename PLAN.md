@@ -169,7 +169,7 @@ branch: `feat/articles-news-stacks`
     News details
 - [x] Update README.md
 - [x] Add tests for the new functionality
-- [ ] Merge the branch into `main` and tag it with the next semantic version number.
+- [x] Merge the branch into `main` and tag it with the next semantic version number.
 
 ## Phase 9: Update Documentation and Public API
 
